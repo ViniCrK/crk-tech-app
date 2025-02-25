@@ -5,12 +5,17 @@ import { ImagemCarrosselType } from "@/data/CarrosselData";
 type Props = {
   item: ImagemCarrosselType;
   index: number;
+  alturaImagem: number;
+  larguraImagem: number;
 };
 
-function CarrosselItem({ item, index }: Props) {
+function CarrosselItem({ item, index, alturaImagem, larguraImagem }: Props) {
   return (
     <View style={styles.itensContainer}>
-      <Image source={item.imagem} style={styles.imagem} />
+      <Image
+        source={item.imagem}
+        style={{ height: alturaImagem, width: larguraImagem }}
+      />
       <Text>{item.titulo}</Text>
     </View>
   );
@@ -22,9 +27,5 @@ const styles = StyleSheet.create({
   itensContainer: {
     alignItems: "center",
     gap: 20,
-  },
-  imagem: {
-    width: 350,
-    height: 250,
   },
 });
