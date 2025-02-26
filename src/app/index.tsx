@@ -1,16 +1,12 @@
 import Carrossel from "@/components/carrossel";
-import { Link } from "expo-router";
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { router } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function Home() {
   return (
     <>
+      <StatusBar style="dark" />
       <ScrollView style={styles.container}>
         <View style={{ paddingHorizontal: 30, paddingBottom: 30 }}>
           <Text style={styles.titulo}>
@@ -19,19 +15,13 @@ export default function Home() {
 
           <Carrossel alturaImagem={300} larguraImagem={350} />
 
-          <TouchableOpacity style={{ paddingTop: 20 }}>
-            <Link href={"/projetos"}>
-              <Text
-                style={{
-                  paddingTop: 20,
-                  color: "#FFFFFF",
-                  textAlign: "center",
-                }}
-              >
-                Veja nossos projetos
-              </Text>
-            </Link>
-          </TouchableOpacity>
+          <View style={{ paddingTop: 20 }}>
+            <Button
+              onPress={() => router.push("/projetos")}
+              title="Veja nossos projetos"
+              color={"#212020"}
+            />
+          </View>
         </View>
 
         <View style={styles.avaliacoesContainer}>
