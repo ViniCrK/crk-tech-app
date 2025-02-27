@@ -21,6 +21,11 @@ export default function Home() {
               title="Veja nossos projetos"
               color={"#212020"}
             />
+            <Button
+              onPress={() => router.push("/servicos")}
+              title="Contrate nossos serviços"
+              color={"#212020"}
+            />
           </View>
         </View>
 
