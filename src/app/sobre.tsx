@@ -53,7 +53,7 @@ export default function Sobre() {
               style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
             >
               <Image
-                source={require("@/assets/images/ÍCONE1.png")}
+                source={require("@/assets/images/ICONE1.png")}
                 style={{ height: 35, width: 35 }}
               />
               <Text style={styles.redesTexto}>@crk.tech</Text>
@@ -63,7 +63,7 @@ export default function Sobre() {
               style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
             >
               <Image
-                source={require("@/assets/images/ÍCONE2.png")}
+                source={require("@/assets/images/ICONE2.png")}
                 style={{ height: 35, width: 35 }}
               />
               <Text style={styles.redesTexto}>crktech71022@gmail.com</Text>
