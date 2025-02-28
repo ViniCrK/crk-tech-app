@@ -10,6 +10,7 @@ export default function RootLayout() {
         name="servicos/index"
         options={{ headerTitle: "Serviços" }}
       />
+      <Stack.Screen name="sobre" options={{ headerTitle: "Sobre" }} />
     </Stack>
   );
 }
