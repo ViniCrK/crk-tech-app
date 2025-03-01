@@ -1,7 +1,6 @@
 import { ScrollView, View, Text, StyleSheet, Image } from "react-native";
 
 import CardImagem from "@/components/CardImagem";
-import Carrossel from "@/components/carrossel";
 
 export default function Sobre() {
   return (
@@ -12,7 +11,10 @@ export default function Sobre() {
             Montando, limpando e otimizando computadores desde 2023
           </Text>
 
-          <Carrossel alturaImagem={380} larguraImagem={350} />
+          <Image
+            source={require("@/assets/images/ICONE1.png")}
+            style={{ height: 350, width: 350, borderRadius: 20 }}
+          />
 
           <Text style={styles.sobreDesc}>
             Tudo começa com um problema. Seu computador está lento? Travando?
@@ -39,7 +41,7 @@ export default function Sobre() {
           <Text style={styles.equipeTitulo}>NOSSA EQUIPE</Text>
 
           <CardImagem
-            imagem={require("@/assets/images/pc-2.jpg")}
+            imagem={require("@/assets/images/vinicius.jpg")}
             titulo="Vinícius Cerqueira"
             descricao="Fundador e Técnico"
           />
