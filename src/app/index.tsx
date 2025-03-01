@@ -1,7 +1,9 @@
-import Carrossel from "@/components/carrossel";
-import { router } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { router } from "expo-router";
+
+import Carrossel from "@/components/carrossel";
+import { ImagensInicio } from "@/data/InicioData";
 
 export default function Home() {
   return (
@@ -13,9 +15,13 @@ export default function Home() {
             ASSISTÊNCIA TÉCNICA ESPECIALIZADA EM MONTAGEM DE COMPUTADORES
           </Text>
 
-          <Carrossel alturaImagem={300} larguraImagem={350} />
+          <Carrossel
+            data={ImagensInicio}
+            alturaImagem={300}
+            larguraImagem={350}
+          />
 
-          <View style={{ paddingTop: 20 }}>
+          <View style={{ paddingTop: 20, gap: 10 }}>
             <Button
               onPress={() => router.push("/projetos")}
               title="Veja nossos projetos"
@@ -31,6 +37,7 @@ export default function Home() {
               title="Sobre nós"
               color={"#212020"}
             />
+            <Button onPress={() => router.push("/login")} title="Faça Login" />
           </View>
         </View>
 

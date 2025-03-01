@@ -1,4 +1,5 @@
 import Carrossel from "@/components/carrossel";
+import { ImagensProjetos } from "@/data/ProjetosData";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function Projetos() {
@@ -8,7 +9,11 @@ export default function Projetos() {
         <View style={{ paddingHorizontal: 30, paddingBottom: 30 }}>
           <Text style={styles.titulo}>NOSSOS PROJETOS</Text>
 
-          <Carrossel alturaImagem={380} larguraImagem={350} />
+          <Carrossel
+            data={ImagensProjetos}
+            alturaImagem={380}
+            larguraImagem={350}
+          />
         </View>
 
         <View style={styles.chamadaContainer}>

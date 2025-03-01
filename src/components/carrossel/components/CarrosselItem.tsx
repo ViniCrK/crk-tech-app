@@ -1,9 +1,9 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 
-import { ImagemCarrosselType } from "@/data/CarrosselData";
+import { ImagensInicioProps } from "@/data/InicioData";
 
 type Props = {
-  item: ImagemCarrosselType;
+  item: ImagensInicioProps;
   index: number;
   alturaImagem: number;
   larguraImagem: number;

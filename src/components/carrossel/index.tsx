@@ -1,18 +1,18 @@
 import { FlatList, StyleSheet, View } from "react-native";
 
-import { CarrosselImagens } from "@/data/CarrosselData";
 import CarrosselItem from "./components/CarrosselItem";
 
-type ConfigImageProps = {
+type CarrosselProps = {
+  data: any[];
   alturaImagem: number;
   larguraImagem: number;
 };
 
-function Carrossel({ alturaImagem, larguraImagem }: ConfigImageProps) {
+function Carrossel({ data, alturaImagem, larguraImagem }: CarrosselProps) {
   return (
     <View>
       <FlatList
-        data={CarrosselImagens}
+        data={data}
         renderItem={({ item, index }) => (
           <CarrosselItem
             item={item}
@@ -30,5 +30,3 @@ function Carrossel({ alturaImagem, larguraImagem }: ConfigImageProps) {
 }
 
 export default Carrossel;
-
-const styles = StyleSheet.create({});
