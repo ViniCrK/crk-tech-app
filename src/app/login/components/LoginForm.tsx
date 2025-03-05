@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { router } from "expo-router";
 import {
   Button,
@@ -9,12 +10,19 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import LoginSchema from "@/schemas/loginSchema";
+import CadastroSchema from "@/schemas/cadastroSchema";
 
 export default function LoginForm() {
+  const [cadastro, setCadastro] = useState(false);
+
   return (
     <Formik
-      initialValues={{ email: "", senha: "" }}
-      validationSchema={LoginSchema}
+      initialValues={
+        !cadastro
+          ? { email: "", senha: "" }
+          : { email: "", usuario: "", senha: "" }
+      }
+      validationSchema={!cadastro ? LoginSchema : CadastroSchema}
       onSubmit={(dados) => console.log(dados)}
     >
       {({
@@ -43,6 +51,22 @@ export default function LoginForm() {
               <Text style={styles.textoErro}>{errors.email}</Text>
             )}
 
+            {cadastro && (
+              <>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange("usuario")}
+                  onBlur={handleBlur("usuario")}
+                  placeholder="Insira seu nome de usuário"
+                  placeholderTextColor={"#000000"}
+                />
+
+                {errors.usuario && touched.usuario && (
+                  <Text style={styles.textoErro}>{errors.usuario}</Text>
+                )}
+              </>
+            )}
+
             <TextInput
               style={styles.input}
               onChangeText={handleChange("senha")}
@@ -57,19 +81,21 @@ export default function LoginForm() {
 
             <Button
               onPress={() => handleSubmit()}
-              title="Entrar"
+              title={!cadastro ? "Entrar" : "Cadastrar"}
               color={"#2547A0"}
               disabled={isSubmitting}
             />
 
-            <View style={styles.rodapeContainer}>
+            <View
+              style={!cadastro ? styles.rodapeContainer : { display: "none" }}
+            >
               <TouchableOpacity onPress={() => router.back()}>
                 <Text style={styles.textoRodape}>Esqueceu sua senha?</Text>
               </TouchableOpacity>
 
               <Text style={styles.textoRodape}>|</Text>
 
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => setCadastro(true)}>
                 <Text style={styles.textoRodape}>Crie sua conta</Text>
               </TouchableOpacity>
             </View>
