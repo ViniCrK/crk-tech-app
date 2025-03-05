@@ -7,11 +7,11 @@ export type ImagensProjetosProps = {
 
 export const ImagensProjetos = [
   {
-    imagem: require("@/assets/images/ICONE1.png"),
+    imagem: require("@/assets/images/projeto-1.jpg"),
     titulo: "Projeto 1",
   },
   {
-    imagem: require("@/assets/images/ICONE2.png"),
+    imagem: require("@/assets/images/projeto-2.jpg"),
     titulo: "Projeto 2",
   },
   {
