@@ -37,6 +37,7 @@ npx expo start --clear
 
 ## 🛠️ Construído com
 
+- [Node.js](https://nodejs.org/pt) - Ambiente de execução de JS/TS
 - [React Native](https://reactnative.dev/) - Framework mobile utilizado
 - [Expo](https://docs.expo.dev/) - Framework auxiliar utilizado
 - [npm](https://www.npmjs.com/) - Gerente de Dependência
@@ -47,7 +48,7 @@ Nós usamos [Git](https://www.git-scm.com/) para controle de versão.
 
 ## ✒️ Autores
 
-- **Vinícius Cerqueira** - _Desenvolvimento FrontEnd_ - [ViniCrK](https://github.com/ViniCrK)
+- **Vinícius Cerqueira** - _Desenvolvimento Mobile_ - [ViniCrK](https://github.com/ViniCrK)
 
 Você também pode ver a lista de todos os [colaboradores](https://github.com/ViniCrK/crk-tech-app/graphs/contributors) que participaram deste projeto.
 
