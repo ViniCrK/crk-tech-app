@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     flex: 1,
     maxWidth: "auto",
     backgroundColor: "#D9D9D9",
-    paddingTop: 30,
+    paddingTop: 50,
   },
   titulo: {
     maxWidth: 105,

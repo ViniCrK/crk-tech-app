@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     flex: 1,
     maxWidth: "auto",
     backgroundColor: "#FFFFFF",
-    paddingTop: 30,
+    paddingTop: 50,
   },
   titulo: {
     paddingBottom: 10,

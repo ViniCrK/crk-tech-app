@@ -1,6 +1,5 @@
-import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { router } from "expo-router";
 
 import Carrossel from "@/components/carrossel";
 import { ImagensInicio } from "@/data/InicioData";
@@ -20,25 +19,6 @@ export default function Home() {
             alturaImagem={300}
             larguraImagem={350}
           />
-
-          <View style={{ paddingTop: 20, gap: 10 }}>
-            <Button
-              onPress={() => router.push("/projetos")}
-              title="Veja nossos projetos"
-              color={"#212020"}
-            />
-            <Button
-              onPress={() => router.push("/servicos")}
-              title="Contrate nossos serviços"
-              color={"#212020"}
-            />
-            <Button
-              onPress={() => router.push("/sobre")}
-              title="Sobre nós"
-              color={"#212020"}
-            />
-            <Button onPress={() => router.push("/login")} title="Faça Login" />
-          </View>
         </View>
 
         <View style={styles.avaliacoesContainer}>
@@ -67,7 +47,7 @@ const styles = StyleSheet.create({
     flex: 1,
     maxWidth: "auto",
     backgroundColor: "#2547A0",
-    paddingTop: 30,
+    paddingTop: 50,
   },
   titulo: {
     paddingBottom: 10,

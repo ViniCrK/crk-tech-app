@@ -14,7 +14,7 @@ export default function Servicos() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 30,
+    paddingTop: 50,
     paddingHorizontal: 40,
     backgroundColor: "#212020",
   },
