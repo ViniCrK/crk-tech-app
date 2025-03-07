@@ -1,8 +1,28 @@
-import { ScrollView, View, Text, StyleSheet, Image } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
 
 import CardImagem from "@/components/CardImagem";
 
 export default function Sobre() {
+  const abrirInstagram = async () => {
+    const appUrl = "instagram://user?username=crk.tech";
+    const webUrl = "https://www.instagram.com/crk.tech";
+
+    const urlSuportada = await Linking.canOpenURL(appUrl);
+
+    if (urlSuportada) {
+      await Linking.openURL(appUrl);
+    } else {
+      await Linking.openURL(webUrl);
+    }
+  };
   return (
     <>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -58,7 +78,9 @@ export default function Sobre() {
                 source={require("@/assets/images/ICONE1.png")}
                 style={{ height: 35, width: 35 }}
               />
-              <Text style={styles.redesTexto}>@crk.tech</Text>
+              <TouchableOpacity onPress={abrirInstagram}>
+                <Text style={styles.redesTexto}>@crk.tech</Text>
+              </TouchableOpacity>
             </View>
 
             <View
