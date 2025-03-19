@@ -1,4 +1,11 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 
 import Carrossel from "@/components/carrossel";
@@ -14,10 +21,23 @@ export default function Home() {
             ASSISTÊNCIA TÉCNICA ESPECIALIZADA EM MONTAGEM DE COMPUTADORES
           </Text>
 
-          <Carrossel
+          <FlatList
             data={ImagensInicio}
-            alturaImagem={300}
-            larguraImagem={350}
+            renderItem={({ item, index }) => (
+              <View
+                style={{ paddingVertical: 20, alignItems: "center", gap: 20 }}
+              >
+                <Image
+                  source={item.imagem}
+                  style={{ height: 300, width: 350 }}
+                />
+                <Text
+                  style={{ color: "#FFFFFF", fontSize: 20, fontWeight: "bold" }}
+                >
+                  {item.titulo}
+                </Text>
+              </View>
+            )}
           />
         </View>
 
@@ -77,7 +97,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   avaliacoesNome: {
-    paddingVertical: 20,
+    paddingTop: 20,
+    paddingBottom: 120,
     color: "#FFFFFF",
     fontSize: 14,
     fontWeight: "bold",

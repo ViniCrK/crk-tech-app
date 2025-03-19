@@ -9,17 +9,17 @@ export type ImagensInicioProps = {
 export const ImagensInicio = [
   {
     imagem: require("@/assets/images/pc-2.jpg"),
-    titulo: "imagem 1",
+    titulo: "REALIZE.",
     descricao: "descricao imagem 1",
   },
   {
     imagem: require("@/assets/images/pc-2.jpg"),
-    titulo: "imagem 2",
+    titulo: "SEU.",
     descricao: "descricao imagem 2",
   },
   {
     imagem: require("@/assets/images/pc-2.jpg"),
-    titulo: "imagem 3",
+    titulo: "SONHO.",
     descricao: "descricao imagem 3",
   },
 ];
