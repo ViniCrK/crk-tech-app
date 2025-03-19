@@ -21,24 +21,19 @@ export default function Home() {
             ASSISTÊNCIA TÉCNICA ESPECIALIZADA EM MONTAGEM DE COMPUTADORES
           </Text>
 
-          <FlatList
-            data={ImagensInicio}
-            renderItem={({ item, index }) => (
-              <View
-                style={{ paddingVertical: 20, alignItems: "center", gap: 20 }}
+          {ImagensInicio.map((item, index) => (
+            <View
+              key={index}
+              style={{ paddingVertical: 20, alignItems: "center", gap: 20 }}
+            >
+              <Image source={item.imagem} style={{ height: 300, width: 350 }} />
+              <Text
+                style={{ color: "#FFFFFF", fontSize: 20, fontWeight: "bold" }}
               >
-                <Image
-                  source={item.imagem}
-                  style={{ height: 300, width: 350 }}
-                />
-                <Text
-                  style={{ color: "#FFFFFF", fontSize: 20, fontWeight: "bold" }}
-                >
-                  {item.titulo}
-                </Text>
-              </View>
-            )}
-          />
+                {item.titulo}
+              </Text>
+            </View>
+          ))}
         </View>
 
         <View style={styles.avaliacoesContainer}>
