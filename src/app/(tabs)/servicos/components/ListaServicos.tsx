@@ -18,7 +18,7 @@ function ListaItem({ item, index }: Props) {
 
 export default function ListaServicos() {
   return (
-    <View style={{ paddingBottom: 50 }}>
+    <View style={{ paddingBottom: 140 }}>
       <FlatList
         data={CardServicosData}
         renderItem={({ item, index }) => (

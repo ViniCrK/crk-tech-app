@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   redesContainer: {
     gap: 10,
     paddingTop: 10,
-    paddingBottom: 30,
+    paddingBottom: 130,
   },
   redesTexto: {
     color: "#FFFFFF",

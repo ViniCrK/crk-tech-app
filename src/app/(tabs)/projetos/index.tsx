@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   chamadaDesc: {
     width: 300,
-    paddingBottom: 20,
+    paddingBottom: 100,
     color: "#FFFFFF",
     fontSize: 14,
     fontWeight: "black",
