@@ -3,9 +3,14 @@ import { Stack } from "expo-router";
 export default function ProjetosLayout() {
   return (
     <>
-      <Stack>
+      <Stack
+        screenOptions={{
+          headerStyle: { backgroundColor: "#D9D9D9" },
+          headerTintColor: "#212020",
+        }}
+      >
         <Stack.Screen name="index" options={{ headerShown: false }} />
-        {/* TODO: Criar rota dinâmica para cada projeto */}
+        <Stack.Screen name="[id]" options={{ title: "Detalhes do Projeto" }} />
       </Stack>
     </>
   );

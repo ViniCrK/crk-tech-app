@@ -1,5 +1,5 @@
 import Carrossel from "@/components/carrossel";
-import { ImagensProjetos } from "@/data/ProjetosData";
+import { ProjetosData } from "@/data/ProjetosData";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function Projetos() {
@@ -10,7 +10,7 @@ export default function Projetos() {
           <Text style={styles.titulo}>NOSSOS PROJETOS</Text>
 
           <Carrossel
-            data={ImagensProjetos}
+            data={ProjetosData}
             alturaImagem={380}
             larguraImagem={350}
           />
