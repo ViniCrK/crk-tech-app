@@ -1,17 +1,31 @@
 import { CardServicosData, CardServicosType } from "@/data/ServicosData";
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import { router } from "expo-router";
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 type Props = {
   item: CardServicosType;
   index: number;
 };
 
-function ListaItem({ item, index }: Props) {
+function CardServico({ item, index }: Props) {
   return (
     <View style={styles.itensContainer}>
       <Image source={item.icone} style={styles.icone} />
+
       <Text style={styles.titulo}>{item.titulo}</Text>
+
       <Text style={styles.descricao}>{item.descricao}</Text>
+
+      <TouchableOpacity onPress={() => router.push(`/servicos/${item.id}`)}>
+        <Text style={styles.botao}>Contratar serviço</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -23,7 +37,7 @@ export default function ListaServicos() {
         data={CardServicosData}
         renderItem={({ item, index }) => (
           <View>
-            <ListaItem item={item} index={index} />
+            <CardServico item={item} index={index} />
           </View>
         )}
         contentContainerStyle={styles.listaContainer}
@@ -52,12 +66,22 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   titulo: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
     alignSelf: "baseline",
   },
   descricao: {
     fontSize: 16,
     fontWeight: "regular",
+  },
+  botao: {
+    alignSelf: "flex-end",
+    padding: 10,
+    marginTop: 10,
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    borderRadius: 10,
+    backgroundColor: "#2547A0",
   },
 });
