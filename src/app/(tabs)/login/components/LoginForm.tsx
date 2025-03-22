@@ -2,6 +2,7 @@ import { useState } from "react";
 import { router } from "expo-router";
 import {
   Button,
+  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -35,7 +36,12 @@ export default function LoginForm() {
         isSubmitting,
       }) => (
         <View style={styles.container}>
-          <Text style={styles.titulo}>Bem-vindo(a) a CRK Tech</Text>
+          <Image
+            source={require("@/assets/images/CRK TECH LOGO PRETO.png")}
+            style={{ height: 60, width: 120 }}
+          />
+
+          <Text style={styles.titulo}>{cadastro ? "Cadastro" : "Login"}</Text>
 
           <View style={styles.inputContainer}>
             <TextInput
@@ -113,6 +119,7 @@ const styles = StyleSheet.create({
     padding: 30,
     borderRadius: 10,
     backgroundColor: "#FFFFFF",
+    alignItems: "center",
   },
   titulo: {
     fontWeight: "medium",
