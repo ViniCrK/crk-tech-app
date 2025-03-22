@@ -10,6 +10,8 @@ import {
 
 import CardImagem from "@/components/CardImagem";
 
+import Entypo from "@expo/vector-icons/Entypo";
+
 export default function Sobre() {
   const abrirInstagram = async () => {
     const appUrl = "instagram://user?username=crk.tech";
@@ -21,6 +23,19 @@ export default function Sobre() {
       await Linking.openURL(appUrl);
     } else {
       await Linking.openURL(webUrl);
+    }
+  };
+
+  const abrirYoutube = async () => {
+    const appURL = "youtube://channel/@crktech-7";
+    const webURL = "https://www.youtube.com/@crktech-7";
+
+    const URLSuportada = await Linking.canOpenURL(appURL);
+
+    if (URLSuportada) {
+      await Linking.openURL(appURL);
+    } else {
+      await Linking.openURL(webURL);
     }
   };
   return (
@@ -72,24 +87,30 @@ export default function Sobre() {
 
           <View style={styles.redesContainer}>
             <View
-              style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
+              style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
             >
-              <Image
-                source={require("@/assets/images/ICONE1.png")}
-                style={{ height: 35, width: 35 }}
-              />
+              <Entypo name="instagram" size={30} color="white" />
+
               <TouchableOpacity onPress={abrirInstagram}>
                 <Text style={styles.redesTexto}>@crk.tech</Text>
               </TouchableOpacity>
             </View>
 
             <View
-              style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
+              style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
             >
-              <Image
-                source={require("@/assets/images/ICONE2.png")}
-                style={{ height: 35, width: 35 }}
-              />
+              <Entypo name="youtube" size={30} color="white" />
+
+              <TouchableOpacity onPress={abrirYoutube}>
+                <Text style={styles.redesTexto}>CRK Tech</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+            >
+              <Entypo name="email" size={30} color="white" />
+
               <Text style={styles.redesTexto}>crktech71022@gmail.com</Text>
             </View>
           </View>
