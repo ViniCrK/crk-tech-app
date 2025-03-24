@@ -1,6 +1,13 @@
-import Carrossel from "@/components/carrossel";
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { Link } from "expo-router";
 import { ProjetosData } from "@/data/ProjetosData";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function Projetos() {
   return (
@@ -9,10 +16,17 @@ export default function Projetos() {
         <View style={{ paddingHorizontal: 30, paddingBottom: 30 }}>
           <Text style={styles.titulo}>NOSSOS PROJETOS</Text>
 
-          <Carrossel
+          <FlatList
             data={ProjetosData}
-            alturaImagem={380}
-            larguraImagem={350}
+            keyExtractor={(item) => item.id}
+            numColumns={2}
+            renderItem={({ item }) => (
+              <View style={styles.projetosContainer}>
+                <Link href={`/projetos/${item.id}`}>
+                  <Image source={item.imagem} style={styles.imagemProjeto} />
+                </Link>
+              </View>
+            )}
           />
         </View>
 
@@ -49,6 +63,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "left",
+  },
+  projetosContainer: {
+    flex: 1,
+    aspectRatio: 1,
+    margin: 6,
+    backgroundColor: "#ddd",
+  },
+  imagemProjeto: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+    borderRadius: 10,
   },
   chamadaContainer: {
     paddingVertical: 50,
