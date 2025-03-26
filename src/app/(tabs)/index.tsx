@@ -1,21 +1,13 @@
-import {
-  FlatList,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
-import Carrossel from "@/components/carrossel";
 import { ImagensInicio } from "@/data/InicioData";
 
 export default function Home() {
   return (
     <>
       <StatusBar style="dark" />
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={{ paddingHorizontal: 30, paddingBottom: 30 }}>
           <Text style={styles.titulo}>
             ASSISTÊNCIA TÉCNICA ESPECIALIZADA EM MONTAGEM DE COMPUTADORES
