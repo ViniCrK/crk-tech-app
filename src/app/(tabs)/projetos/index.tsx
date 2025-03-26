@@ -1,8 +1,22 @@
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
-import { Link } from "expo-router";
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  ToastAndroid,
+  View,
+} from "react-native";
+import { Link, useFocusEffect } from "expo-router";
 import { ProjetosData } from "@/data/ProjetosData";
 
 export default function Projetos() {
+  useFocusEffect(() => {
+    ToastAndroid.show(
+      "Clique em um projeto para ver mais detalhes",
+      ToastAndroid.CENTER
+    );
+  });
+
   return (
     <>
       <View style={styles.container}>
