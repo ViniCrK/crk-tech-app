@@ -171,4 +171,88 @@ export const ProjetosData = [
       },
     ],
   },
+  {
+    id: "6",
+    imagem: require("@/assets/images/projeto-5.jpg"),
+    titulo: "Projeto 3",
+    descricao: "Descrição do Projeto 1",
+    especificacoes: [
+      {
+        processador: "AMD Ryzen 5 5600X",
+        placaMae: "Gigabyte B450 Aorus M",
+        RAM: "XPG D45 16GB (2x8GB) 3200MHz",
+        placaDeVideo: "Gigabyte GTX 1650 Super",
+        armazenamento: [
+          {
+            tipo: "SSD NVME",
+            capacidade: "1TB",
+          },
+          {
+            tipo: "HDD",
+            capacidade: "500GB",
+          },
+        ],
+        fonte: "Corsair VS450 450W",
+        airCooler: "Deepcool AK500S Digital",
+        waterCooler: "",
+        gabinete: "Montech Air 100 Mesh",
+      },
+    ],
+  },
+  {
+    id: "7",
+    imagem: require("@/assets/images/projeto-6.jpg"),
+    titulo: "Projeto 3",
+    descricao: "Descrição do Projeto 1",
+    especificacoes: [
+      {
+        processador: "AMD Ryzen 5 5600X",
+        placaMae: "Gigabyte B450 Aorus M",
+        RAM: "XPG D45 16GB (2x8GB) 3200MHz",
+        placaDeVideo: "Gigabyte GTX 1650 Super",
+        armazenamento: [
+          {
+            tipo: "SSD NVME",
+            capacidade: "1TB",
+          },
+          {
+            tipo: "HDD",
+            capacidade: "500GB",
+          },
+        ],
+        fonte: "Corsair VS450 450W",
+        airCooler: "Deepcool AK500S Digital",
+        waterCooler: "",
+        gabinete: "Montech Air 100 Mesh",
+      },
+    ],
+  },
+  {
+    id: "8",
+    imagem: require("@/assets/images/projeto-7.jpg"),
+    titulo: "Projeto 3",
+    descricao: "Descrição do Projeto 1",
+    especificacoes: [
+      {
+        processador: "AMD Ryzen 5 5600X",
+        placaMae: "Gigabyte B450 Aorus M",
+        RAM: "XPG D45 16GB (2x8GB) 3200MHz",
+        placaDeVideo: "Gigabyte GTX 1650 Super",
+        armazenamento: [
+          {
+            tipo: "SSD NVME",
+            capacidade: "1TB",
+          },
+          {
+            tipo: "HDD",
+            capacidade: "500GB",
+          },
+        ],
+        fonte: "Corsair VS450 450W",
+        airCooler: "Deepcool AK500S Digital",
+        waterCooler: "",
+        gabinete: "Montech Air 100 Mesh",
+      },
+    ],
+  },
 ];
