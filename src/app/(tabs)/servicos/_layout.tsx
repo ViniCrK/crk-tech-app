@@ -11,6 +11,10 @@ export default function ServicosLayout() {
       >
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="[id]" options={{ title: "Detalhes do Serviço" }} />
+        <Stack.Screen
+          name="solicitar"
+          options={{ title: "Solicitar Serviço" }}
+        />
       </Stack>
     </>
   );

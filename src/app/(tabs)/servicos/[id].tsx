@@ -1,5 +1,5 @@
 import { CardServicosData } from "@/data/ServicosData";
-import { router, useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import ServicoNaoEncontrado from "./components/ServicoNaoEncontrado";
 
@@ -28,7 +28,9 @@ export default function DetalheServico() {
           <Text style={{ fontSize: 18 }}>{servico.descricao}</Text>
 
           <TouchableOpacity>
-            <Text style={styles.botao}>Adicionar ao Carrinho</Text>
+            <Link href={"servicos/solicitar"} style={styles.botao}>
+              <Text>Adicionar ao Carrinho</Text>
+            </Link>
           </TouchableOpacity>
         </View>
       </View>
