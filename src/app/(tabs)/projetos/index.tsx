@@ -1,21 +1,21 @@
-import {
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  ToastAndroid,
-  View,
-} from "react-native";
-import { Link, useFocusEffect } from "expo-router";
+import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import { useEffect } from "react";
+import { Link } from "expo-router";
+import Toast from "react-native-toast-message";
+
 import { ProjetosData } from "@/data/ProjetosData";
 
 export default function Projetos() {
-  useFocusEffect(() => {
-    ToastAndroid.show(
-      "Clique em um projeto para ver mais detalhes",
-      ToastAndroid.CENTER
-    );
-  });
+  useEffect(() => {
+    Toast.show({
+      type: "info",
+      text1: "Toque em um projeto para mais informações",
+      position: "top",
+      visibilityTime: 2000,
+      autoHide: true,
+      topOffset: 100,
+    });
+  }, []);
 
   return (
     <>
@@ -36,6 +36,7 @@ export default function Projetos() {
           showsVerticalScrollIndicator={false}
         />
       </View>
+      <Toast />
     </>
   );
 }
