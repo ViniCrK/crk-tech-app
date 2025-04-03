@@ -1,4 +1,12 @@
-import { Button, Image, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useState } from "react";
 
 import { Formik } from "formik";
@@ -7,28 +15,30 @@ import consultoriaSchema from "@/schemas/consultoriaSchema";
 import * as ImagePicker from "expo-image-picker";
 import { Picker } from "@react-native-picker/picker";
 
-export default function SolicitarServicoForm() {
-  const [image, setImage] = useState<string | null>(null);
+import Entypo from "@expo/vector-icons/Entypo";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 
-  const pickImage = async () => {
-    let resultado = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ["images"],
+export default function SolicitarServicoForm() {
+  const [imagem, setImagem] = useState<string | null>(null);
+
+  const escolherImagem = async () => {
+    let foto = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
-      aspect: [9, 16],
-      quality: 1,
+      aspect: [4, 3],
+      base64: true,
+      allowsMultipleSelection: false,
+      mediaTypes: ["images"],
+      quality: 0.7,
     });
 
-    console.log(resultado);
-
-    if (!resultado.canceled) {
-      setImage(resultado.assets[0].uri);
+    if (!foto.canceled) {
+      setImagem("data:image/jpg;base64," + foto.assets[0].base64);
     }
   };
   return (
     <Formik
       initialValues={{
         nome: "",
-        email: "",
         tipoEquipamento: "",
         descricaoSolicitacao: "",
         imagem: "",
@@ -57,52 +67,103 @@ export default function SolicitarServicoForm() {
               style={styles.input}
               onChangeText={handleChange("nome")}
               onBlur={handleBlur("nome")}
-              placeholder="Insira seu nome e sobrenome"
+              placeholder="Nome completo"
               placeholderTextColor={"#000000"}
               autoFocus
             />
 
-            <TextInput
-              style={styles.input}
-              onChangeText={handleChange("email")}
-              onBlur={handleBlur("email")}
-              placeholder="Insira seu e-mail"
-              placeholderTextColor={"#000000"}
-              keyboardType="email-address"
-            />
+            {errors.nome && touched.nome && (
+              <Text style={styles.textoErro}>{errors.nome}</Text>
+            )}
 
             <Picker
-              onValueChange={handleChange("idade")}
-              style={styles.selectInput}
+              onValueChange={handleChange("tipoEquipamento")}
+              style={{ backgroundColor: "#DEDEDE" }}
               mode="dropdown"
-              selectionColor={"blue"}
-              placeholder="Idade"
               numberOfLines={1}
             >
-              <Picker.Item label="Computador" />
-              <Picker.Item label="Notebook" />
+              <Picker.Item
+                style={{ fontSize: 14 }}
+                label="Tipo do Equipamento"
+              />
+              <Picker.Item
+                style={{ fontSize: 14 }}
+                label="Computador"
+                value={"Computador"}
+              />
+              <Picker.Item
+                style={{ fontSize: 14 }}
+                label="Notebook"
+                value={"Notebook"}
+              />
             </Picker>
 
+            {errors.tipoEquipamento && touched.tipoEquipamento && (
+              <Text style={styles.textoErro}>{errors.tipoEquipamento}</Text>
+            )}
+
             <TextInput
-              style={styles.input}
+              style={styles.inputDescricao}
+              multiline
               onChangeText={handleChange("descricaoSolicitacao")}
               onBlur={handleBlur("descricaoSolicitacao")}
               placeholder="Descrição da Solicitação"
               placeholderTextColor={"#000000"}
             />
 
-            <Button title="Escolher imagem de referência" onPress={pickImage} />
-            {image && (
-              <Image
-                source={{ uri: image }}
-                style={{ height: 200, width: 100 }}
-              />
+            {errors.descricaoSolicitacao && touched.descricaoSolicitacao && (
+              <Text style={styles.textoErro}>
+                {errors.descricaoSolicitacao}
+              </Text>
+            )}
+
+            {/* TODO: Descobrir uma forma de armazenar a uri da imagem */}
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 10,
+                padding: 10,
+                borderRadius: 5,
+                backgroundColor: "#D9D9D9",
+              }}
+            >
+              <Text style={{ maxWidth: 160 }}>Imagem para inspiração:</Text>
+              {!imagem ? (
+                <TouchableOpacity
+                  style={{ padding: 5, borderWidth: 1, borderRadius: 10 }}
+                  onPress={escolherImagem}
+                >
+                  <Entypo name="images" size={40} color="black" />
+                </TouchableOpacity>
+              ) : (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 23,
+                  }}
+                >
+                  <Image
+                    source={{ uri: imagem }}
+                    style={{ height: 100, width: 100 }}
+                  />
+
+                  <TouchableOpacity onPress={() => setImagem(null)}>
+                    <FontAwesome6 name="trash-can" size={32} color="red" />
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
+
+            {errors.imagem && touched.imagem && (
+              <Text style={styles.textoErro}>{errors.imagem}</Text>
             )}
 
             <Button
               onPress={() => handleSubmit()}
               title={"Enviar"}
-              color={"#212020"}
+              color={"#2147A0"}
               disabled={isSubmitting}
             />
           </View>
@@ -136,9 +197,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#DEDEDE",
     borderRadius: 5,
   },
-  selectInput: {
+  inputDescricao: {
+    height: "auto",
+    width: 350,
+    paddingLeft: 10,
     fontSize: 14,
     fontWeight: "regular",
     backgroundColor: "#DEDEDE",
+    borderRadius: 5,
+  },
+  textoErro: {
+    color: "red",
+    fontSize: 12,
   },
 });
