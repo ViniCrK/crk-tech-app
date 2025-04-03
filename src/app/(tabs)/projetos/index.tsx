@@ -1,4 +1,11 @@
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useEffect } from "react";
 import { Link } from "expo-router";
 import Toast from "react-native-toast-message";
@@ -28,8 +35,16 @@ export default function Projetos() {
           numColumns={2}
           renderItem={({ item }) => (
             <View style={styles.projetosContainer}>
-              <Link href={`/projetos/${item.id}`}>
-                <Image source={item.imagem} style={styles.imagemProjeto} />
+              <Link
+                href={{
+                  pathname: "/projetos/[id]",
+                  params: { id: item.id },
+                }}
+                asChild
+              >
+                <TouchableOpacity>
+                  <Image source={item.imagem} style={styles.imagemProjeto} />
+                </TouchableOpacity>
               </Link>
             </View>
           )}

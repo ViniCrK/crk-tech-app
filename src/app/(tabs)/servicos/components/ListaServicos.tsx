@@ -1,5 +1,5 @@
 import { CardServicosData, CardServicosType } from "@/data/ServicosData";
-import { router } from "expo-router";
+import { Link } from "expo-router";
 import {
   FlatList,
   Image,
@@ -23,9 +23,17 @@ function CardServico({ item, index }: Props) {
 
       <Text style={styles.descricao}>{item.descricao}</Text>
 
-      <TouchableOpacity onPress={() => router.push(`/servicos/${item.id}`)}>
-        <Text style={styles.botao}>Contratar serviço</Text>
-      </TouchableOpacity>
+      <Link
+        href={{
+          pathname: "servicos/[id]",
+          params: { id: item.id },
+        }}
+        asChild
+      >
+        <TouchableOpacity>
+          <Text style={styles.botao}>Contratar serviço</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 }
