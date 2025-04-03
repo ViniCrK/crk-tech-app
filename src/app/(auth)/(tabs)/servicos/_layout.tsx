@@ -5,7 +5,7 @@ export default function ServicosLayout() {
     <>
       <Stack
         screenOptions={{
-          headerStyle: { backgroundColor: "#212020" },
+          headerStyle: { backgroundColor: "#001044" },
           headerTintColor: "#FFFFFF",
         }}
       >

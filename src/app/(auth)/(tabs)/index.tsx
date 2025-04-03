@@ -1,12 +1,11 @@
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import { StatusBar } from "expo-status-bar";
 
 import { ImagensInicio } from "@/data/InicioData";
 
 export default function Home() {
   return (
-    <>
-      <StatusBar style="dark" />
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={{ paddingHorizontal: 30, paddingBottom: 30 }}>
           <Text style={styles.titulo}>
@@ -45,23 +44,22 @@ export default function Home() {
           </Text>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    paddingTop: 30,
     maxWidth: "auto",
-    backgroundColor: "#2547A0",
-    paddingTop: 50,
+    backgroundColor: "#001044",
   },
   titulo: {
     paddingBottom: 10,
     color: "#FFFFFF",
     fontSize: 20,
     fontWeight: "bold",
-    textAlign: "right",
+    textAlign: "left",
   },
   avaliacoesContainer: {
     alignItems: "center",

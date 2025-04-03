@@ -1,3 +1,4 @@
+import { SafeAreaView } from "react-native-safe-area-context";
 import {
   ScrollView,
   View,
@@ -39,7 +40,7 @@ export default function Sobre() {
     }
   };
   return (
-    <>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={{ paddingHorizontal: 30, paddingBottom: 30 }}>
           <Text style={styles.titulo}>
@@ -116,16 +117,16 @@ export default function Sobre() {
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 30,
     maxWidth: "auto",
     backgroundColor: "#FFFFFF",
-    paddingTop: 50,
   },
   titulo: {
     paddingBottom: 10,
@@ -142,12 +143,12 @@ const styles = StyleSheet.create({
   equipeContainer: {
     paddingHorizontal: 30,
     paddingTop: 20,
-    paddingBottom: 30,
-    backgroundColor: "#D9D9D9",
+    paddingBottom: 20,
+    backgroundColor: "#001044",
   },
   equipeTitulo: {
     paddingBottom: 10,
-    color: "#212020",
+    color: "#FFFFFF",
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "left",
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
   rodapeContainer: {
     paddingVertical: 20,
     paddingHorizontal: 30,
-    backgroundColor: "#2547A0",
+    backgroundColor: "#001044",
   },
   rodapeTitulo: {
     color: "#FFFFFF",

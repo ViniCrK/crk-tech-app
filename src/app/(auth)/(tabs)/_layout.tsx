@@ -111,27 +111,6 @@ export default function TabLayout() {
             },
           }}
         />
-        <Tabs.Screen
-          name="login"
-          options={{
-            tabBarLabel: "ENTRAR",
-            tabBarIcon: ({ focused }) => {
-              return (
-                <>
-                  <View
-                    style={{ alignItems: "center", justifyContent: "center" }}
-                  >
-                    <FontAwesome6
-                      name="user-circle"
-                      size={24}
-                      color={focused ? "#2547A0" : "#212020"}
-                    />
-                  </View>
-                </>
-              );
-            },
-          }}
-        />
       </Tabs>
     </>
   );

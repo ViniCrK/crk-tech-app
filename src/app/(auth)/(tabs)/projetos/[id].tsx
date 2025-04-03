@@ -1,12 +1,5 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
-import { router, useLocalSearchParams } from "expo-router";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import { useLocalSearchParams } from "expo-router";
 import { ProjetosData } from "@/data/ProjetosData";
 import ProjetoNaoEncontrado from "./components/ProjetoNaoEncontrado";
 
@@ -22,11 +15,9 @@ export default function DetalheProjeto() {
     <>
       <ScrollView style={styles.container}>
         <View style={styles.projetoContainer}>
-          <Image source={projeto.imagem} style={{ height: 320, width: 300 }} />
+          <Image source={projeto.imagem} style={styles.projetoImagem} />
 
-          <Text style={{ fontSize: 36, fontWeight: "bold" }}>
-            {projeto.titulo}
-          </Text>
+          <Text style={styles.projetoTitulo}>{projeto.titulo}</Text>
 
           {projeto.especificacoes.map((componente, index) => (
             <View key={index} style={styles.especificacoesContainer}>
@@ -64,15 +55,10 @@ export default function DetalheProjeto() {
             </View>
           ))}
 
-          <Text>{projeto.descricao}</Text>
-
-          <TouchableOpacity
-            onPress={() => {
-              router.push(`/servicos/5`);
-            }}
-          >
-            <Text style={styles.botao}>Contratar consultoria</Text>
-          </TouchableOpacity>
+          <View style={styles.descricaoContainer}>
+            <Text style={{ fontSize: 18, fontWeight: "bold" }}>Descrição:</Text>
+            <Text>{projeto.descricao}</Text>
+          </View>
         </View>
       </ScrollView>
     </>
@@ -91,20 +77,29 @@ const styles = StyleSheet.create({
     paddingBottom: 120,
     gap: 20,
   },
+  projetoImagem: {
+    width: 300,
+    height: 300,
+    borderRadius: 10,
+    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)",
+  },
+  projetoTitulo: {
+    color: "#212020",
+    fontSize: 36,
+    fontWeight: "bold",
+  },
   especificacoesContainer: {
     gap: 10,
     padding: 10,
     borderRadius: 10,
     borderWidth: 2,
-    backgroundColor: "#D9D9D9",
+    borderColor: "#001044",
   },
-  botao: {
-    alignSelf: "flex-end",
+  descricaoContainer: {
+    gap: 10,
     padding: 10,
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#FFFFFF",
     borderRadius: 10,
-    backgroundColor: "#2547A0",
+    borderWidth: 2,
+    backgroundColor: "#FFFFFF",
   },
 });

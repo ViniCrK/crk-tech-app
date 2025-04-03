@@ -5,8 +5,8 @@ export default function ProjetosLayout() {
     <>
       <Stack
         screenOptions={{
-          headerStyle: { backgroundColor: "#D9D9D9" },
-          headerTintColor: "#212020",
+          headerStyle: { backgroundColor: "#001044" },
+          headerTintColor: "#FFFFFF",
         }}
       >
         <Stack.Screen name="index" options={{ headerShown: false }} />

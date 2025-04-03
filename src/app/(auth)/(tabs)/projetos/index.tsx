@@ -1,3 +1,4 @@
+import { SafeAreaView } from "react-native-safe-area-context";
 import {
   FlatList,
   Image,
@@ -17,56 +18,55 @@ export default function Projetos() {
     Toast.show({
       type: "info",
       text1: "Toque em um projeto para mais informações",
+      text1Style: { fontSize: 14 },
       position: "top",
       visibilityTime: 2000,
       autoHide: true,
-      topOffset: 100,
+      topOffset: 50,
     });
   }, []);
 
   return (
-    <>
-      <View style={styles.container}>
-        <Text style={styles.titulo}>NOSSOS PROJETOS</Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.titulo}>NOSSOS PROJETOS</Text>
 
-        <FlatList
-          data={ProjetosData}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-          renderItem={({ item }) => (
-            <View style={styles.projetosContainer}>
-              <Link
-                href={{
-                  pathname: "/projetos/[id]",
-                  params: { id: item.id },
-                }}
-                asChild
-              >
-                <TouchableOpacity>
-                  <Image source={item.imagem} style={styles.imagemProjeto} />
-                </TouchableOpacity>
-              </Link>
-            </View>
-          )}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
+      <FlatList
+        data={ProjetosData}
+        keyExtractor={(item) => item.id}
+        numColumns={2}
+        renderItem={({ item }) => (
+          <View style={styles.projetosContainer}>
+            <Link
+              href={{
+                pathname: "/projetos/[id]",
+                params: { id: item.id },
+              }}
+              asChild
+            >
+              <TouchableOpacity>
+                <Image source={item.imagem} style={styles.imagemProjeto} />
+              </TouchableOpacity>
+            </Link>
+          </View>
+        )}
+        showsVerticalScrollIndicator={false}
+      />
       <Toast />
-    </>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 50,
+    paddingTop: 30,
     paddingHorizontal: 30,
     paddingBottom: 80,
-    backgroundColor: "#D9D9D9",
+    backgroundColor: "#FFFFFF",
   },
   titulo: {
     maxWidth: 105,
-    paddingBottom: 10,
+    paddingBottom: 20,
     color: "#212020",
     fontSize: 20,
     fontWeight: "bold",
