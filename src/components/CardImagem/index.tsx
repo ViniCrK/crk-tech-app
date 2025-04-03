@@ -16,8 +16,12 @@ export default function CardImagem({
       <Image source={imagem} style={{ height: 380, width: 350 }} />
 
       <View style={{ paddingTop: 10, gap: 5 }}>
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>{titulo}</Text>
-        <Text style={{ fontSize: 14, fontWeight: "regular" }}>{descricao}</Text>
+        <Text style={{ fontSize: 20, fontWeight: "bold", color: "#FFFFFF" }}>
+          {titulo}
+        </Text>
+        <Text style={{ fontSize: 14, fontWeight: "regular", color: "#FFFFFF" }}>
+          {descricao}
+        </Text>
       </View>
     </>
   );
