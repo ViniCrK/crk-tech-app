@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { router } from "expo-router";
 import {
   Button,
@@ -32,9 +32,10 @@ export default function Login() {
             : { email: "", usuario: "", senha: "" }
         }
         validationSchema={!cadastro ? LoginSchema : CadastroSchema}
-        onSubmit={(dados) => console.log(dados)}
+        onSubmit={() => router.replace("/(auth)")}
       >
         {({
+          values,
           errors,
           touched,
           handleBlur,
@@ -90,8 +91,7 @@ export default function Login() {
               <Button
                 onPress={() => {
                   handleSubmit();
-                  entrar();
-                  router.replace("/(auth)");
+                  entrar(values.email, values.senha);
                 }}
                 title={!cadastro ? "Entrar" : "Cadastrar"}
                 color={"#2547A0"}

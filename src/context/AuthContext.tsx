@@ -1,11 +1,13 @@
-import { createContext, PropsWithChildren, useContext } from "react";
+import { createContext, PropsWithChildren, useContext, useState } from "react";
 
 type AuthContextType = {
-  entrar: () => void;
+  estaAutenticado: boolean;
+  entrar: (email: string, senha: string) => void;
   sair: () => void;
 };
 
 const AuthContext = createContext<AuthContextType>({
+  estaAutenticado: false,
   entrar: () => {},
   sair: () => {},
 });
@@ -17,17 +19,22 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }: PropsWithChildren) {
+  const [estaAutenticado, setEstaAutenticado] = useState(false);
+
+  const entrar = (email: string, senha: string) => {
+    if (email == "teste@email.com" && senha == "123456") {
+      setEstaAutenticado(true);
+      console.log("Usuário autenticado");
+    }
+  };
+
+  const sair = () => {
+    setEstaAutenticado(false);
+    console.log("Usuário desconectado");
+  };
+
   return (
-    <AuthContext.Provider
-      value={{
-        entrar: () => {
-          console.log("Entrou no sistema!");
-        },
-        sair: () => {
-          console.log("Saiu do sistema!");
-        },
-      }}
-    >
+    <AuthContext.Provider value={{ estaAutenticado, entrar, sair }}>
       {children}
     </AuthContext.Provider>
   );

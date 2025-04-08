@@ -33,17 +33,15 @@ export default function TabLayout() {
             tabBarLabel: "INÍCIO",
             tabBarIcon: ({ focused }) => {
               return (
-                <>
-                  <View
-                    style={{ alignItems: "center", justifyContent: "center" }}
-                  >
-                    <Feather
-                      name="home"
-                      size={24}
-                      color={focused ? "#2547A0" : "#212020"}
-                    />
-                  </View>
-                </>
+                <View
+                  style={{ alignItems: "center", justifyContent: "center" }}
+                >
+                  <Feather
+                    name="home"
+                    size={24}
+                    color={focused ? "#2547A0" : "#212020"}
+                  />
+                </View>
               );
             },
           }}
@@ -54,17 +52,15 @@ export default function TabLayout() {
             tabBarLabel: "PROJETOS",
             tabBarIcon: ({ focused }) => {
               return (
-                <>
-                  <View
-                    style={{ alignItems: "center", justifyContent: "center" }}
-                  >
-                    <FontAwesome5
-                      name="project-diagram"
-                      size={20}
-                      color={focused ? "#2547A0" : "#212020"}
-                    />
-                  </View>
-                </>
+                <View
+                  style={{ alignItems: "center", justifyContent: "center" }}
+                >
+                  <FontAwesome5
+                    name="project-diagram"
+                    size={20}
+                    color={focused ? "#2547A0" : "#212020"}
+                  />
+                </View>
               );
             },
           }}
@@ -75,17 +71,15 @@ export default function TabLayout() {
             tabBarLabel: "SERVIÇOS",
             tabBarIcon: ({ focused }) => {
               return (
-                <>
-                  <View
-                    style={{ alignItems: "center", justifyContent: "center" }}
-                  >
-                    <Octicons
-                      name="tools"
-                      size={24}
-                      color={focused ? "#2547A0" : "#212020"}
-                    />
-                  </View>
-                </>
+                <View
+                  style={{ alignItems: "center", justifyContent: "center" }}
+                >
+                  <Octicons
+                    name="tools"
+                    size={24}
+                    color={focused ? "#2547A0" : "#212020"}
+                  />
+                </View>
               );
             },
           }}
@@ -96,17 +90,34 @@ export default function TabLayout() {
             tabBarLabel: "SOBRE",
             tabBarIcon: ({ focused }) => {
               return (
-                <>
-                  <View
-                    style={{ alignItems: "center", justifyContent: "center" }}
-                  >
-                    <AntDesign
-                      name="infocirlceo"
-                      size={24}
-                      color={focused ? "#2547A0" : "#212020"}
-                    />
-                  </View>
-                </>
+                <View
+                  style={{ alignItems: "center", justifyContent: "center" }}
+                >
+                  <AntDesign
+                    name="infocirlceo"
+                    size={24}
+                    color={focused ? "#2547A0" : "#212020"}
+                  />
+                </View>
+              );
+            },
+          }}
+        />
+        <Tabs.Screen
+          name="perfil"
+          options={{
+            tabBarLabel: "PERFIL",
+            tabBarIcon: ({ focused }) => {
+              return (
+                <View
+                  style={{ alignItems: "center", justifyContent: "center" }}
+                >
+                  <FontAwesome6
+                    name="user-circle"
+                    size={24}
+                    color={focused ? "#2547A0" : "#212020"}
+                  />
+                </View>
               );
             },
           }}
