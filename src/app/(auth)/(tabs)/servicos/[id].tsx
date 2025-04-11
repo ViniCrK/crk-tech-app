@@ -27,11 +27,11 @@ export default function DetalheServico() {
 
           <Text style={{ fontSize: 18 }}>{servico.descricao}</Text>
 
-          <TouchableOpacity>
-            <Link href={"servicos/solicitar"} style={styles.botao}>
-              <Text>Adicionar ao Carrinho</Text>
-            </Link>
-          </TouchableOpacity>
+          <Link href={"servicos/solicitar"} asChild>
+            <TouchableOpacity>
+              <Text style={styles.botao}>Preencher formulário</Text>
+            </TouchableOpacity>
+          </Link>
         </View>
       </View>
     </>
