@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { router } from "expo-router";
 import {
+  Alert,
   Button,
   Image,
   StyleSheet,
@@ -11,12 +12,14 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import LoginSchema from "@/schemas/loginSchema";
-import CadastroSchema from "@/schemas/cadastroSchema";
-import { useAuth } from "@/context/AuthContext";
+import { auth } from "@/config/firebase-config";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 export default function Login() {
   const [cadastro, setCadastro] = useState(false);
-  const { entrar } = useAuth();
 
   return (
     <View style={styles.container}>
@@ -26,12 +29,8 @@ export default function Login() {
       />
 
       <Formik
-        initialValues={
-          !cadastro
-            ? { email: "", senha: "" }
-            : { email: "", usuario: "", senha: "" }
-        }
-        validationSchema={!cadastro ? LoginSchema : CadastroSchema}
+        initialValues={{ email: "", senha: "" }}
+        validationSchema={LoginSchema}
         onSubmit={() => router.replace("/(auth)")}
       >
         {({
@@ -60,22 +59,6 @@ export default function Login() {
                 <Text style={styles.textoErro}>{errors.email}</Text>
               )}
 
-              {cadastro && (
-                <>
-                  <TextInput
-                    style={styles.input}
-                    onChangeText={handleChange("usuario")}
-                    onBlur={handleBlur("usuario")}
-                    placeholder="Insira seu nome de usuário"
-                    placeholderTextColor={"#000000"}
-                  />
-
-                  {errors.usuario && touched.usuario && (
-                    <Text style={styles.textoErro}>{errors.usuario}</Text>
-                  )}
-                </>
-              )}
-
               <TextInput
                 style={styles.input}
                 onChangeText={handleChange("senha")}
@@ -89,28 +72,56 @@ export default function Login() {
               )}
 
               <Button
-                onPress={() => {
-                  handleSubmit();
-                  entrar(values.email, values.senha);
-                }}
+                onPress={
+                  cadastro
+                    ? () => {
+                        createUserWithEmailAndPassword(
+                          auth,
+                          values.email,
+                          values.senha
+                        )
+                          .then(() => router.push("/login"))
+                          .catch((erro) =>
+                            Alert.alert(
+                              "Erro",
+                              "Não foi possível criar o usuário, tente novamente"
+                            )
+                          );
+                      }
+                    : () => {
+                        signInWithEmailAndPassword(
+                          auth,
+                          values.email,
+                          values.senha
+                        )
+                          .then(() => handleSubmit())
+                          .catch((erro) =>
+                            Alert.alert("Erro", "Login ou Senha incorreta!")
+                          );
+                      }
+                }
                 title={!cadastro ? "Entrar" : "Cadastrar"}
                 color={"#2547A0"}
                 disabled={isSubmitting}
               />
 
-              <View
-                style={!cadastro ? styles.rodapeContainer : { display: "none" }}
-              >
-                <TouchableOpacity onPress={() => router.back()}>
-                  <Text style={styles.textoRodape}>Esqueceu sua senha?</Text>
-                </TouchableOpacity>
-
-                <Text style={styles.textoRodape}>|</Text>
-
-                <TouchableOpacity onPress={() => setCadastro(true)}>
+              {!cadastro ? (
+                <TouchableOpacity
+                  onPress={() => setCadastro(true)}
+                  style={styles.rodapeContainer}
+                >
                   <Text style={styles.textoRodape}>Crie sua conta</Text>
                 </TouchableOpacity>
-              </View>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => setCadastro(false)}
+                  style={styles.rodapeContainer}
+                >
+                  <Text style={styles.textoRodape}>
+                    Já tem uma conta? Faça login
+                  </Text>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
         )}
@@ -158,11 +169,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   rodapeContainer: {
-    flexDirection: "row",
-    paddingTop: 10,
-    justifyContent: "space-around",
+    justifyContent: "center",
+    alignItems: "center",
   },
   textoRodape: {
     fontSize: 12,
+    textDecorationLine: "underline",
+    textDecorationStyle: "solid",
+    textDecorationColor: "#2547A0",
   },
 });
