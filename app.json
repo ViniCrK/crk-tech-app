@@ -32,7 +32,6 @@
         {
           "photosPermission": "custom photos permission",
           "cameraPermission": "Allow $(PRODUCT_NAME) to open the camera",
-
           "//": "Disables the microphone permission",
           "microphonePermission": false
         }
@@ -51,6 +50,7 @@
     },
     "updates": {
       "url": "https://u.expo.dev/3598d65f-eefe-4f88-b961-abf6ac943340"
-    }
+    },
+    "owner": "vinicrk"
   }
 }
