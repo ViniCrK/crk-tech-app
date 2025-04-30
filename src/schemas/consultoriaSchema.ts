@@ -9,7 +9,7 @@ const consultoriaSchema = Yup.object({
     .required("Descrição da solicitação é obrigatória")
     .min(10, "A descrição deve conter mais detalhes")
     .max(500, "O número máximo 500 caracteres excedido."),
-  imagem: Yup.string(),
+  imagem: Yup.string().optional(),
 });
 
 export default consultoriaSchema;

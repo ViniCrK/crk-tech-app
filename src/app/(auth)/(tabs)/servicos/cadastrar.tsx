@@ -1,35 +1,34 @@
+import { useState } from "react";
 import {
-  Button,
-  Image,
   StyleSheet,
+  View,
+  Image,
   Text,
   TextInput,
+  Button,
   TouchableOpacity,
-  View,
 } from "react-native";
-import { useState } from "react";
 
 import { Formik } from "formik";
-import consultoriaSchema from "@/schemas/consultoriaSchema";
+import cadastrarServicoSchema from "@/schemas/cadastrarServicoSchema";
 
 import * as ImagePicker from "expo-image-picker";
-import { Picker } from "@react-native-picker/picker";
 
 import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 
-export default function SolicitarServicoForm() {
-  const [imagem, setImagem] = useState<string | null>(null);
+export default function CadastrarServico() {
+  const [icone, setIcone] = useState<string | null>(null);
 
   return (
     <Formik
       initialValues={{
-        nome: "",
-        tipoEquipamento: "",
-        descricaoSolicitacao: "",
-        imagem: "",
+        titulo: "",
+        preco: 0.0,
+        descricao: "",
+        icone: "",
       }}
-      validationSchema={consultoriaSchema}
+      validationSchema={cadastrarServicoSchema}
       onSubmit={(dados) => console.log(dados)}
     >
       {({
@@ -47,61 +46,43 @@ export default function SolicitarServicoForm() {
             style={{ height: 60, width: 120 }}
           />
 
-          <Text style={styles.titulo}>Formulário de Solicitação</Text>
+          <Text style={styles.titulo}>Formulário de Cadastro</Text>
 
-          <View style={{ gap: 20 }}>
+          <View style={styles.inputContainer}>
             <TextInput
               style={styles.input}
-              onChangeText={handleChange("nome")}
-              onBlur={handleBlur("nome")}
-              placeholder="Nome completo"
+              onChangeText={handleChange("titulo")}
+              onBlur={handleBlur("titulo")}
+              placeholder="Título do Serviço"
               placeholderTextColor={"#000000"}
               autoFocus
             />
-
-            {errors.nome && touched.nome && (
-              <Text style={styles.textoErro}>{errors.nome}</Text>
+            {errors.titulo && touched.titulo && (
+              <Text style={styles.textoErro}>{errors.titulo}</Text>
             )}
 
-            <Picker
-              onValueChange={handleChange("tipoEquipamento")}
-              style={{ backgroundColor: "#DEDEDE" }}
-              mode="dropdown"
-              numberOfLines={1}
-            >
-              <Picker.Item
-                style={{ fontSize: 14 }}
-                label="Tipo do Equipamento"
-              />
-              <Picker.Item
-                style={{ fontSize: 14 }}
-                label="Computador"
-                value={"Computador"}
-              />
-              <Picker.Item
-                style={{ fontSize: 14 }}
-                label="Notebook"
-                value={"Notebook"}
-              />
-            </Picker>
-
-            {errors.tipoEquipamento && touched.tipoEquipamento && (
-              <Text style={styles.textoErro}>{errors.tipoEquipamento}</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={handleChange("preco")}
+              onBlur={handleBlur("preco")}
+              placeholder="Preço do Serviço (R$)"
+              placeholderTextColor={"#000000"}
+              keyboardType="numeric"
+            />
+            {errors.preco && touched.preco && (
+              <Text style={styles.textoErro}>{errors.preco}</Text>
             )}
 
             <TextInput
               style={styles.inputDescricao}
               multiline
-              onChangeText={handleChange("descricaoSolicitacao")}
-              onBlur={handleBlur("descricaoSolicitacao")}
-              placeholder="Descrição da Solicitação"
+              onChangeText={handleChange("descricao")}
+              onBlur={handleBlur("descricao")}
+              placeholder="Descrição do Serviço"
               placeholderTextColor={"#000000"}
             />
-
-            {errors.descricaoSolicitacao && touched.descricaoSolicitacao && (
-              <Text style={styles.textoErro}>
-                {errors.descricaoSolicitacao}
-              </Text>
+            {errors.descricao && touched.descricao && (
+              <Text style={styles.textoErro}>{errors.descricao}</Text>
             )}
 
             <View
@@ -114,27 +95,25 @@ export default function SolicitarServicoForm() {
                 backgroundColor: "#D9D9D9",
               }}
             >
-              <Text style={{ maxWidth: 160 }}>
-                Imagem para inspiração(opcicional):
-              </Text>
-              {!imagem ? (
+              <Text style={{ maxWidth: 160 }}>Ícone do Serviço:</Text>
+              {!icone ? (
                 <TouchableOpacity
                   style={{ padding: 5, borderWidth: 1, borderRadius: 10 }}
                   onPress={async () => {
-                    let foto = await ImagePicker.launchImageLibraryAsync({
+                    let icon = await ImagePicker.launchImageLibraryAsync({
                       allowsEditing: true,
-                      aspect: [4, 3],
+                      aspect: [1, 1],
                       base64: true,
                       allowsMultipleSelection: false,
                       mediaTypes: ["images"],
-                      quality: 0.7,
+                      quality: 1,
                     });
 
-                    if (!foto.canceled) {
-                      const base64Imagem =
-                        "data:image/jpg;base64," + foto.assets[0].base64;
-                      setImagem(base64Imagem);
-                      setFieldValue("imagem", base64Imagem);
+                    if (!icon.canceled) {
+                      const base64Icone =
+                        "data:image/jpg;base64," + icon.assets[0].base64;
+                      setIcone(base64Icone);
+                      setFieldValue("icone", base64Icone);
                     }
                   }}
                 >
@@ -149,19 +128,18 @@ export default function SolicitarServicoForm() {
                   }}
                 >
                   <Image
-                    source={{ uri: imagem }}
-                    style={{ height: 100, width: 100 }}
+                    source={{ uri: icone }}
+                    style={{ height: 45, width: 45 }}
                   />
 
-                  <TouchableOpacity onPress={() => setImagem(null)}>
+                  <TouchableOpacity onPress={() => setIcone(null)}>
                     <FontAwesome6 name="trash-can" size={32} color="red" />
                   </TouchableOpacity>
                 </View>
               )}
             </View>
-
-            {errors.imagem && touched.imagem && (
-              <Text style={styles.textoErro}>{errors.imagem}</Text>
+            {errors.icone && touched.icone && (
+              <Text style={styles.textoErro}>{errors.icone}</Text>
             )}
 
             <Button
@@ -180,8 +158,7 @@ export default function SolicitarServicoForm() {
 const styles = StyleSheet.create({
   formContainer: {
     height: "auto",
-    paddingTop: 30,
-    paddingBottom: 100,
+    paddingVertical: 30,
     borderRadius: 10,
     backgroundColor: "#FFFFFF",
     alignItems: "center",
@@ -191,6 +168,9 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: "center",
     paddingVertical: 20,
+  },
+  inputContainer: {
+    gap: 20,
   },
   input: {
     height: 50,
@@ -202,7 +182,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   inputDescricao: {
-    height: "auto",
+    minHeight: 50,
     width: 350,
     paddingLeft: 10,
     fontSize: 14,
