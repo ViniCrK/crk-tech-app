@@ -1,4 +1,3 @@
-import { SafeAreaView } from "react-native-safe-area-context";
 import {
   ScrollView,
   View,
@@ -40,84 +39,75 @@ export default function Sobre() {
     }
   };
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        <View style={{ paddingHorizontal: 30, paddingBottom: 30 }}>
-          <Text style={styles.titulo}>
-            Montando, limpando e otimizando computadores desde 2023
-          </Text>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <View style={{ paddingHorizontal: 30, paddingBottom: 30 }}>
+        <Text style={styles.titulo}>
+          Montando, limpando e otimizando computadores desde 2023
+        </Text>
 
-          <Image
-            source={require("@/assets/images/ICONE1.png")}
-            style={{ height: 350, width: 350, borderRadius: 20 }}
-          />
+        <Image
+          source={require("@/assets/images/ICONE1.png")}
+          style={{ height: 350, width: 350, borderRadius: 20 }}
+        />
 
-          <Text style={styles.sobreDesc}>
-            Tudo começa com um problema. Seu computador está lento? Travando?
-            Superaquecendo? Talvez você precise de um upgrade para melhorar o
-            desempenho. Seja qual for a sua necessidade, estamos aqui para
-            ajudar.
-          </Text>
+        <Text style={styles.sobreDesc}>
+          Tudo começa com um problema. Seu computador está lento? Travando?
+          Superaquecendo? Talvez você precise de um upgrade para melhorar o
+          desempenho. Seja qual for a sua necessidade, estamos aqui para ajudar.
+        </Text>
 
-          <Text style={styles.sobreDesc}>
-            Nossa missão é oferecer um serviço confiável, rápido e transparente.
-            Sabemos como é frustrante ficar sem o computador quando mais
-            precisa, por isso trabalhamos para garantir soluções eficientes e
-            sem complicação.
-          </Text>
+        <Text style={styles.sobreDesc}>
+          Nossa missão é oferecer um serviço confiável, rápido e transparente.
+          Sabemos como é frustrante ficar sem o computador quando mais precisa,
+          por isso trabalhamos para garantir soluções eficientes e sem
+          complicação.
+        </Text>
 
-          <Text style={styles.sobreDesc}>
-            Mais do que assistência técnica, oferecemos consultoria para que
-            você aproveite ao máximo o seu equipamento. Se o seu PC não está
-            como deveria, é hora de resolver isso.
-          </Text>
-        </View>
+        <Text style={styles.sobreDesc}>
+          Mais do que assistência técnica, oferecemos consultoria para que você
+          aproveite ao máximo o seu equipamento. Se o seu PC não está como
+          deveria, é hora de resolver isso.
+        </Text>
+      </View>
 
-        <View style={styles.equipeContainer}>
-          <Text style={styles.equipeTitulo}>NOSSA EQUIPE</Text>
+      <View style={styles.equipeContainer}>
+        <Text style={styles.equipeTitulo}>NOSSA EQUIPE</Text>
 
-          <CardImagem
-            imagem={require("@/assets/images/vinicius.jpg")}
-            titulo="Vinícius Cerqueira"
-            descricao="Fundador e Técnico"
-          />
-        </View>
+        <CardImagem
+          imagem={require("@/assets/images/vinicius.jpg")}
+          titulo="Vinícius Cerqueira"
+          descricao="Fundador e Técnico"
+        />
+      </View>
 
-        <View style={styles.rodapeContainer}>
-          <Text style={styles.rodapeTitulo}>Fale Conosco</Text>
+      <View style={styles.rodapeContainer}>
+        <Text style={styles.rodapeTitulo}>Fale Conosco</Text>
 
-          <View style={styles.redesContainer}>
-            <View
-              style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
-            >
-              <Entypo name="instagram" size={30} color="white" />
+        <View style={styles.redesContainer}>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <Entypo name="instagram" size={30} color="white" />
 
-              <TouchableOpacity onPress={abrirInstagram}>
-                <Text style={styles.redesTexto}>@crk.tech</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity onPress={abrirInstagram}>
+              <Text style={styles.redesTexto}>@crk.tech</Text>
+            </TouchableOpacity>
+          </View>
 
-            <View
-              style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
-            >
-              <Entypo name="youtube" size={30} color="white" />
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <Entypo name="youtube" size={30} color="white" />
 
-              <TouchableOpacity onPress={abrirYoutube}>
-                <Text style={styles.redesTexto}>CRK Tech</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity onPress={abrirYoutube}>
+              <Text style={styles.redesTexto}>CRK Tech</Text>
+            </TouchableOpacity>
+          </View>
 
-            <View
-              style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
-            >
-              <Entypo name="email" size={30} color="white" />
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <Entypo name="email" size={30} color="white" />
 
-              <Text style={styles.redesTexto}>crktech71022@gmail.com</Text>
-            </View>
+            <Text style={styles.redesTexto}>crktech71022@gmail.com</Text>
           </View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </View>
+    </ScrollView>
   );
 }
 

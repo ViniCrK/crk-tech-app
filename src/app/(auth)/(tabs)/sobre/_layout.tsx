@@ -2,10 +2,8 @@ import { Stack } from "expo-router";
 
 export default function SobreLayout() {
   return (
-    <>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-      </Stack>
-    </>
+    <Stack>
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+    </Stack>
   );
 }

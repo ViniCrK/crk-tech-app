@@ -1,4 +1,3 @@
-import { SafeAreaView } from "react-native-safe-area-context";
 import {
   FlatList,
   Image,
@@ -27,7 +26,7 @@ export default function Projetos() {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.titulo}>NOSSOS PROJETOS</Text>
 
       <FlatList
@@ -52,7 +51,7 @@ export default function Projetos() {
         showsVerticalScrollIndicator={false}
       />
       <Toast />
-    </SafeAreaView>
+    </View>
   );
 }
 

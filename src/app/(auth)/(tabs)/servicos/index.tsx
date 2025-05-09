@@ -1,10 +1,9 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import ListaServicos from "./components/ListaServicos";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useEffect, useState } from "react";
+import { Link } from "expo-router";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/config/firebase-config";
-import { Link } from "expo-router";
+import ListaServicos from "./components/ListaServicos";
 
 export default function Servicos() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -22,7 +21,7 @@ export default function Servicos() {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.titulo}>NOSSOS SERVIÇOS</Text>
 
       {isAdmin && (
@@ -34,7 +33,7 @@ export default function Servicos() {
       )}
 
       <ListaServicos />
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -55,7 +54,7 @@ const styles = StyleSheet.create({
   },
   botaoAdd: {
     position: "absolute",
-    top: 60,
+    top: 30,
     right: 40,
     backgroundColor: "#FFF",
     borderRadius: 30,
