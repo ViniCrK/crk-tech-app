@@ -1,40 +1,85 @@
-import { CardServicosData } from "@/data/ServicosData";
-import { Link, useLocalSearchParams } from "expo-router";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Link, useLocalSearchParams } from "expo-router";
+import { auth, db } from "@/config/firebase-config";
+import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { IServico } from "@/models/Servico";
 import ServicoNaoEncontrado from "./components/ServicoNaoEncontrado";
 
 export default function DetalheServico() {
+  const [servico, setServico] = useState<IServico | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+
   const { id } = useLocalSearchParams();
-  const servico = CardServicosData.find((servico) => servico.id === id);
+
+  const buscarServico = async () => {
+    if (!id || typeof id !== "string") return;
+
+    const docRef = doc(db, "servicos", id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      setServico({ id: docSnap.id, ...docSnap.data() } as IServico);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (usuario) => {
+      if (usuario) {
+        if (usuario.email === "vinicius260803@gmail.com") {
+          setIsAdmin(true);
+        }
+      }
+    });
+
+    buscarServico();
+
+    return unsubscribe;
+  }, []);
 
   if (!servico) {
     return <ServicoNaoEncontrado />;
   }
 
   return (
-    <>
-      <View style={styles.container}>
-        <View style={styles.servicoContainer}>
-          <Image source={servico.icone} style={styles.imagem} />
+    <View style={styles.container}>
+      <View style={styles.servicoContainer}>
+        <Image
+          source={require("@/assets/icones/computador.png")}
+          style={styles.imagem}
+        />
 
-          <Text style={{ fontSize: 36, fontWeight: "bold" }}>
-            {servico.titulo}
-          </Text>
+        <Text style={{ fontSize: 36, fontWeight: "bold" }}>
+          {servico.titulo}
+        </Text>
 
-          <Text style={{ fontSize: 24, fontWeight: "bold", color: "#2547A0" }}>
-            R${servico.preco},00
-          </Text>
+        <Text style={{ fontSize: 24, fontWeight: "bold", color: "#2547A0" }}>
+          R${servico.preco},00
+        </Text>
 
-          <Text style={{ fontSize: 18 }}>{servico.descricao}</Text>
+        <Text style={{ fontSize: 18 }}>{servico.descricao}</Text>
 
-          <Link href={"servicos/solicitar"} asChild>
+        <Link href="servicos/solicitar" asChild>
+          <TouchableOpacity>
+            <Text style={styles.botao}>Preencher formulário</Text>
+          </TouchableOpacity>
+        </Link>
+        {isAdmin && (
+          <Link
+            href={{
+              pathname: "servicos/editar",
+              params: { id: servico.id },
+            }}
+            asChild
+          >
             <TouchableOpacity>
-              <Text style={styles.botao}>Preencher formulário</Text>
+              <Text style={styles.botaoEditar}>Editar Serviço</Text>
             </TouchableOpacity>
           </Link>
-        </View>
+        )}
       </View>
-    </>
+    </View>
   );
 }
 
@@ -65,6 +110,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#FFFFFF",
     backgroundColor: "#2147A0",
+    borderRadius: 10,
+  },
+  botaoEditar: {
+    alignSelf: "center",
+    textAlign: "center",
+    width: 350,
+    marginTop: 10,
+    padding: 20,
+    fontSize: 18,
+    color: "#FFFFFF",
+    backgroundColor: "black",
     borderRadius: 10,
   },
 });

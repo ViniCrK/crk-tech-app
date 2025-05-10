@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -6,19 +5,31 @@ import {
   Text,
   TextInput,
   Button,
-  TouchableOpacity,
+  Alert,
 } from "react-native";
-
+import { router } from "expo-router";
+import { db } from "@/config/firebase-config";
+import { collection, doc, setDoc } from "firebase/firestore";
 import { Formik } from "formik";
 import cadastrarServicoSchema from "@/schemas/cadastrarServicoSchema";
 
-import * as ImagePicker from "expo-image-picker";
-
-import Entypo from "@expo/vector-icons/Entypo";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-
 export default function CadastrarServico() {
-  const [icone, setIcone] = useState<string | null>(null);
+  const cadastrarServico = async (dados: any) => {
+    try {
+      const docRef = doc(collection(db, "servicos"));
+
+      await setDoc(docRef, {
+        id: docRef.id,
+        ...dados,
+      });
+    } catch (erro) {
+      Alert.alert("Erro ao cadastrar documento no Firestore", `${erro}`);
+    }
+
+    Alert.alert("Serviço cadastrado com sucesso!");
+
+    return router.push("/servicos");
+  };
 
   return (
     <Formik
@@ -26,10 +37,9 @@ export default function CadastrarServico() {
         titulo: "",
         preco: 0.0,
         descricao: "",
-        icone: "",
       }}
       validationSchema={cadastrarServicoSchema}
-      onSubmit={(dados) => console.log(dados)}
+      onSubmit={(dados) => cadastrarServico(dados)}
     >
       {({
         errors,
@@ -38,7 +48,6 @@ export default function CadastrarServico() {
         handleChange,
         handleSubmit,
         isSubmitting,
-        setFieldValue,
       }) => (
         <View style={styles.formContainer}>
           <Image
@@ -83,63 +92,6 @@ export default function CadastrarServico() {
             />
             {errors.descricao && touched.descricao && (
               <Text style={styles.textoErro}>{errors.descricao}</Text>
-            )}
-
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 10,
-                padding: 10,
-                borderRadius: 5,
-                backgroundColor: "#D9D9D9",
-              }}
-            >
-              <Text style={{ maxWidth: 160 }}>Ícone do Serviço:</Text>
-              {!icone ? (
-                <TouchableOpacity
-                  style={{ padding: 5, borderWidth: 1, borderRadius: 10 }}
-                  onPress={async () => {
-                    let icon = await ImagePicker.launchImageLibraryAsync({
-                      allowsEditing: true,
-                      aspect: [1, 1],
-                      base64: true,
-                      allowsMultipleSelection: false,
-                      mediaTypes: ["images"],
-                      quality: 1,
-                    });
-
-                    if (!icon.canceled) {
-                      const base64Icone =
-                        "data:image/jpg;base64," + icon.assets[0].base64;
-                      setIcone(base64Icone);
-                      setFieldValue("icone", base64Icone);
-                    }
-                  }}
-                >
-                  <Entypo name="images" size={40} color="black" />
-                </TouchableOpacity>
-              ) : (
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 23,
-                  }}
-                >
-                  <Image
-                    source={{ uri: icone }}
-                    style={{ height: 45, width: 45 }}
-                  />
-
-                  <TouchableOpacity onPress={() => setIcone(null)}>
-                    <FontAwesome6 name="trash-can" size={32} color="red" />
-                  </TouchableOpacity>
-                </View>
-              )}
-            </View>
-            {errors.icone && touched.icone && (
-              <Text style={styles.textoErro}>{errors.icone}</Text>
             )}
 
             <Button
