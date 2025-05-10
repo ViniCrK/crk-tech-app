@@ -12,7 +12,6 @@ const cadastrarServicoSchema = Yup.object({
     .required("Descrição do serviço é obrigatória")
     .min(10, "A descrição deve conter mais detalhes")
     .max(500, "O número máximo de caracteres excedido."),
-  icone: Yup.string().optional(),
 });
 
 export default cadastrarServicoSchema;
