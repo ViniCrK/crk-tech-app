@@ -1,11 +1,19 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useEffect, useState } from "react";
-import { Link, useLocalSearchParams } from "expo-router";
+import { Link, router, useLocalSearchParams } from "expo-router";
 import { auth, db } from "@/config/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { IServico } from "@/models/Servico";
 import ServicoNaoEncontrado from "./components/ServicoNaoEncontrado";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 
 export default function DetalheServico() {
   const [servico, setServico] = useState<IServico | null>(null);
@@ -22,6 +30,18 @@ export default function DetalheServico() {
     if (docSnap.exists()) {
       setServico({ id: docSnap.id, ...docSnap.data() } as IServico);
     }
+  };
+
+  const excluirServico = async (id: string) => {
+    try {
+      deleteDoc(doc(db, "servicos", id));
+    } catch (erro) {
+      Alert.alert("Erro ao excluir serviço do Firestore: ", `${erro}`);
+    }
+
+    Alert.alert("Serviço deletado com sucesso!");
+
+    return router.push("/servicos");
   };
 
   useEffect(() => {
@@ -66,17 +86,25 @@ export default function DetalheServico() {
           </TouchableOpacity>
         </Link>
         {isAdmin && (
-          <Link
-            href={{
-              pathname: "servicos/editar",
-              params: { id: servico.id },
-            }}
-            asChild
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <TouchableOpacity>
-              <Text style={styles.botaoEditar}>Editar Serviço</Text>
+            <Link
+              href={{
+                pathname: "projetos/editar",
+                params: { id: servico.id },
+              }}
+              asChild
+            >
+              <TouchableOpacity>
+                <Text style={styles.botaoEditar}>Editar Projeto</Text>
+              </TouchableOpacity>
+            </Link>
+
+            <TouchableOpacity onPress={() => excluirServico(servico.id)}>
+              <Text style={styles.botaoExcluir}>Excluir Projeto</Text>
             </TouchableOpacity>
-          </Link>
+          </View>
         )}
       </View>
     </View>
@@ -115,12 +143,24 @@ const styles = StyleSheet.create({
   botaoEditar: {
     alignSelf: "center",
     textAlign: "center",
-    width: 350,
+    width: 160,
     marginTop: 10,
     padding: 20,
     fontSize: 18,
     color: "#FFFFFF",
     backgroundColor: "black",
+    borderRadius: 10,
+  },
+  botaoExcluir: {
+    alignSelf: "center",
+    textAlign: "center",
+    width: 160,
+    marginTop: 10,
+    padding: 20,
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    backgroundColor: "red",
     borderRadius: 10,
   },
 });
