@@ -5,7 +5,6 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Alert,
 } from "react-native";
 import { Link, router, useLocalSearchParams } from "expo-router";
 import ProjetoNaoEncontrado from "./components/ProjetoNaoEncontrado";
@@ -14,6 +13,7 @@ import { IProjeto } from "@/models/Projeto";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { auth, db } from "@/config/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
+import exibirAlerta from "@/utils/AlertaToast";
 
 export default function DetalheProjeto() {
   const [projeto, setProjeto] = useState<IProjeto | null>(null);
@@ -37,10 +37,10 @@ export default function DetalheProjeto() {
       const docRef = doc(db, "projetos", id);
       await deleteDoc(docRef);
     } catch (erro) {
-      Alert.alert("Erro ao excluir projeto.", `${erro}`);
+      exibirAlerta("error", "bottom", "Erro ao excluir projeto.", `${erro}`);
     }
 
-    Alert.alert("Projeto excluído com sucesso!");
+    exibirAlerta("success", "bottom", "Projeto excluído com sucesso!");
 
     return router.push("/projetos");
   };

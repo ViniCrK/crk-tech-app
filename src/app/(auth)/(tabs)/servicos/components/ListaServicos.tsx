@@ -1,6 +1,5 @@
 import {
   ActivityIndicator,
-  Alert,
   FlatList,
   StyleSheet,
   View,
@@ -11,6 +10,7 @@ import { db } from "@/config/firebase-config";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { IServico } from "@/models/Servico";
 import CardServico from "./CardServico";
+import exibirAlerta from "@/utils/AlertaToast";
 
 export default function ListaServicos() {
   const imagens = [
@@ -37,7 +37,12 @@ export default function ListaServicos() {
 
       setServicos(dados);
     } catch (erro) {
-      Alert.alert("Erro ao buscar os serviços no Firestore:", `${erro}`);
+      exibirAlerta(
+        "error",
+        "bottom",
+        "Erro ao buscar os serviços no Firestore:",
+        `${erro}`
+      );
     } finally {
       setCarregando(false);
     }

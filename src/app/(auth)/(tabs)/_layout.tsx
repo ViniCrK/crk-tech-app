@@ -7,21 +7,16 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Octicons from "@expo/vector-icons/Octicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import Toast from "react-native-toast-message";
+import exibirAlerta from "@/utils/AlertaToast";
 
 export default function TabLayout() {
   useEffect(() => {
-    Toast.show({
-      type: "success",
-      text1: "Bem-vindo ao nosso aplicativo!",
-      text1Style: { fontSize: 14 },
-      text2: "Usuário autenticado com sucesso",
-      text2Style: { fontSize: 12 },
-      position: "bottom",
-      visibilityTime: 2000,
-      autoHide: true,
-      bottomOffset: 450,
-    });
+    exibirAlerta(
+      "success",
+      "bottom",
+      "Bem-vindo ao nosso aplicativo!",
+      "Usuário autenticado com sucesso."
+    );
   }, []);
 
   return (
@@ -139,7 +134,6 @@ export default function TabLayout() {
           }}
         />
       </Tabs>
-      <Toast />
     </>
   );
 }

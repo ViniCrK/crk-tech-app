@@ -1,5 +1,6 @@
 import { db } from "@/config/firebase-config";
 import cadastrarProjetoSchema from "@/schemas/cadastrarProjetoSchema";
+import exibirAlerta from "@/utils/AlertaToast";
 import { router } from "expo-router";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { Formik } from "formik";
@@ -11,7 +12,6 @@ import {
   TextInput,
   Button,
   ScrollView,
-  Alert,
 } from "react-native";
 
 export default function CadastrarProjeto() {
@@ -24,10 +24,15 @@ export default function CadastrarProjeto() {
         ...dados,
       });
     } catch (erro) {
-      Alert.alert("Erro ao cadastrar Projeto no Firestore:", `${erro}`);
+      exibirAlerta(
+        "error",
+        "bottom",
+        "Erro ao cadastrar Projeto no Firestore:",
+        `${erro}`
+      );
     }
 
-    Alert.alert("Projeto cadastrado com sucesso!");
+    exibirAlerta("success", "bottom", "Projeto cadastrado com sucesso!");
 
     return router.push("/projetos");
   };

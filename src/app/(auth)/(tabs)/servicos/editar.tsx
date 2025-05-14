@@ -1,12 +1,4 @@
-import {
-  Alert,
-  Button,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Image,
-} from "react-native";
+import { Button, StyleSheet, Text, TextInput, View, Image } from "react-native";
 import { useEffect, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { db } from "@/config/firebase-config";
@@ -14,6 +6,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { Formik } from "formik";
 import cadastrarServicoSchema from "@/schemas/cadastrarServicoSchema";
 import { IServico } from "@/models/Servico";
+import exibirAlerta from "@/utils/AlertaToast";
 
 export default function EditarServico() {
   const [servico, setServico] = useState<IServico | null>(null);
@@ -42,13 +35,15 @@ export default function EditarServico() {
         descricao: dados.descricao,
       });
     } catch (erro) {
-      Alert.alert(
+      exibirAlerta(
+        "error",
+        "bottom",
         `Erro ao atualizar os dados do Serviço ${servico?.titulo}-${servico?.id}:`,
         `${erro}`
       );
     }
 
-    Alert.alert("Serviço atualizado com sucesso!");
+    exibirAlerta("success", "bottom", "Serviço atualizado com sucesso!");
 
     return router.push("/servicos");
   };

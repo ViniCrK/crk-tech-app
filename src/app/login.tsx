@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { router } from "expo-router";
 import {
-  Alert,
   Button,
   Image,
   StyleSheet,
@@ -17,6 +16,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import exibirAlerta from "@/utils/AlertaToast";
 
 export default function Login() {
   const [cadastro, setCadastro] = useState(false);
@@ -82,7 +82,9 @@ export default function Login() {
                         )
                           .then(() => router.push("/login"))
                           .catch((erro) =>
-                            Alert.alert(
+                            exibirAlerta(
+                              "error",
+                              "bottom",
                               "Erro",
                               "Não foi possível criar o usuário, tente novamente"
                             )
@@ -96,7 +98,12 @@ export default function Login() {
                         )
                           .then(() => handleSubmit())
                           .catch((erro) =>
-                            Alert.alert("Erro", "Login ou Senha incorreta!")
+                            exibirAlerta(
+                              "error",
+                              "bottom",
+                              "Erro",
+                              "Login ou Senha incorreta!"
+                            )
                           );
                       }
                 }

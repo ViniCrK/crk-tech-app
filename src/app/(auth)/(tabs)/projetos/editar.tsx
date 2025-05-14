@@ -1,5 +1,4 @@
 import {
-  Alert,
   Text,
   View,
   Image,
@@ -15,6 +14,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/config/firebase-config";
 import { Formik } from "formik";
 import cadastrarProjetoSchema from "@/schemas/cadastrarProjetoSchema";
+import exibirAlerta from "@/utils/AlertaToast";
 
 export default function EditarProjeto() {
   const [projeto, setProjeto] = useState<IProjeto | null>(null);
@@ -38,13 +38,15 @@ export default function EditarProjeto() {
       const docRef = doc(db, "projetos", id);
       await updateDoc(docRef, dados);
     } catch (erro) {
-      Alert.alert(
+      exibirAlerta(
+        "error",
+        "bottom",
         `Erro ao atualizar os dados do Projeto ${projeto?.titulo}.`,
         `${erro}`
       );
     }
 
-    Alert.alert("Projeto atualizado com sucesso!");
+    exibirAlerta("success", "bottom", "Projeto atualizado com sucesso!");
 
     return router.push("/projetos");
   };

@@ -1,17 +1,10 @@
-import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  TextInput,
-  Button,
-  Alert,
-} from "react-native";
+import { StyleSheet, View, Image, Text, TextInput, Button } from "react-native";
 import { router } from "expo-router";
 import { db } from "@/config/firebase-config";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { Formik } from "formik";
 import cadastrarServicoSchema from "@/schemas/cadastrarServicoSchema";
+import exibirAlerta from "@/utils/AlertaToast";
 
 export default function CadastrarServico() {
   const cadastrarServico = async (dados: any) => {
@@ -23,10 +16,15 @@ export default function CadastrarServico() {
         ...dados,
       });
     } catch (erro) {
-      Alert.alert("Erro ao cadastrar documento no Firestore", `${erro}`);
+      exibirAlerta(
+        "error",
+        "bottom",
+        "Erro ao cadastrar documento no Firestore",
+        `${erro}`
+      );
     }
 
-    Alert.alert("Serviço cadastrado com sucesso!");
+    exibirAlerta("success", "bottom", "Serviço cadastrado com sucesso!");
 
     return router.push("/servicos");
   };

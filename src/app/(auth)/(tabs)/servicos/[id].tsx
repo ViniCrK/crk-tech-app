@@ -1,11 +1,4 @@
-import {
-  Alert,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useEffect, useState } from "react";
 import { Link, router, useLocalSearchParams } from "expo-router";
 import { auth, db } from "@/config/firebase-config";
@@ -13,7 +6,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { IServico } from "@/models/Servico";
 import ServicoNaoEncontrado from "./components/ServicoNaoEncontrado";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import exibirAlerta from "@/utils/AlertaToast";
 
 export default function DetalheServico() {
   const [servico, setServico] = useState<IServico | null>(null);
@@ -36,10 +29,15 @@ export default function DetalheServico() {
     try {
       deleteDoc(doc(db, "servicos", id));
     } catch (erro) {
-      Alert.alert("Erro ao excluir serviço do Firestore: ", `${erro}`);
+      exibirAlerta(
+        "error",
+        "bottom",
+        "Erro ao excluir serviço do Firestore: ",
+        `${erro}`
+      );
     }
 
-    Alert.alert("Serviço deletado com sucesso!");
+    exibirAlerta("success", "bottom", "Serviço deletado com sucesso!");
 
     return router.push("/servicos");
   };

@@ -1,6 +1,5 @@
 import {
   ActivityIndicator,
-  Alert,
   FlatList,
   Image,
   StyleSheet,
@@ -16,6 +15,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "@/config/firebase-config";
 import { IProjeto } from "@/models/Projeto";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import exibirAlerta from "@/utils/AlertaToast";
 
 export default function Projetos() {
   const imagens = [
@@ -47,7 +47,12 @@ export default function Projetos() {
 
       setProjetos(dados);
     } catch (erro) {
-      Alert.alert("Erro ao buscar os projetos no Firestore:", `${erro}`);
+      exibirAlerta(
+        "error",
+        "bottom",
+        "Erro ao buscar os projetos no Firestore:",
+        `${erro}`
+      );
     } finally {
       setCarregando(false);
     }
@@ -122,7 +127,6 @@ export default function Projetos() {
         style={{ gap: 20, paddingVertical: 10 }}
         showsVerticalScrollIndicator={false}
       />
-      <Toast />
     </View>
   );
 }
