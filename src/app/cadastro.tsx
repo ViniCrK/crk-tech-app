@@ -1,35 +1,48 @@
-import { router } from "expo-router";
 import {
-  ActivityIndicator,
   Image,
   StyleSheet,
+  View,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  ActivityIndicator,
 } from "react-native";
+import { router } from "expo-router";
 import { Formik } from "formik";
-import LoginSchema from "@/schemas/loginSchema";
-import { auth } from "@/config/firebase-config";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import CadastroSchema from "@/schemas/cadastroSchema";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "@/config/firebase-config";
 import exibirAlerta from "@/utils/AlertaToast";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-export default function Login() {
-  const entrar = async ({ email, senha }: any) => {
+export default function Cadastro() {
+  const cadastrarUsuario = async ({ nome, email, senha }: any) => {
     try {
-      await signInWithEmailAndPassword(auth, email, senha);
+      const usuario = await createUserWithEmailAndPassword(auth, email, senha);
 
-      router.replace("/(auth)");
+      await setDoc(doc(db, "usuarios", usuario.user.uid), {
+        nome,
+        email,
+      });
+
+      exibirAlerta(
+        "success",
+        "bottom",
+        "Usuário cadastrado com sucesso!",
+        "Faça login para entrar"
+      );
+      router.back();
     } catch (erro) {
       exibirAlerta(
         "error",
         "bottom",
-        "Falha ao entrar",
-        "Email ou Senha incorretos"
+        "Erro",
+        "Não foi possível criar o usuário, tente novamente."
       );
     }
   };
+
   return (
     <View style={styles.container}>
       <Image
@@ -38,9 +51,9 @@ export default function Login() {
       />
 
       <Formik
-        initialValues={{ email: "", senha: "" }}
-        validationSchema={LoginSchema}
-        onSubmit={(dados) => entrar(dados)}
+        initialValues={{ nome: "", email: "", senha: "" }}
+        validationSchema={CadastroSchema}
+        onSubmit={(dados) => cadastrarUsuario(dados)}
       >
         {({
           errors,
@@ -51,9 +64,31 @@ export default function Login() {
           isSubmitting,
         }) => (
           <View style={styles.formContainer}>
-            <Text style={styles.titulo}>Login</Text>
+            <Text style={styles.titulo}>Cadastrar</Text>
 
             <View style={styles.formInputs}>
+              <View style={styles.inputContainer}>
+                <AntDesign
+                  name="user"
+                  size={24}
+                  color="gray"
+                  style={styles.inputIcone}
+                />
+
+                <TextInput
+                  style={styles.inputTexto}
+                  onChangeText={handleChange("nome")}
+                  onBlur={handleBlur("nome")}
+                  placeholder="Nome"
+                  placeholderTextColor={"#000000"}
+                  keyboardType="default"
+                  autoFocus
+                />
+                {errors.nome && touched.nome && (
+                  <Text style={styles.textoErro}>{errors.nome}</Text>
+                )}
+              </View>
+
               <View style={styles.inputContainer}>
                 <AntDesign
                   name="mail"
@@ -61,6 +96,7 @@ export default function Login() {
                   color="gray"
                   style={styles.inputIcone}
                 />
+
                 <TextInput
                   style={styles.inputTexto}
                   onChangeText={handleChange("email")}
@@ -68,7 +104,6 @@ export default function Login() {
                   placeholder="E-mail"
                   placeholderTextColor={"#000000"}
                   keyboardType="email-address"
-                  autoFocus={false}
                 />
                 {errors.email && touched.email && (
                   <Text style={styles.textoErro}>{errors.email}</Text>
@@ -96,9 +131,9 @@ export default function Login() {
               </View>
 
               <View style={styles.rodapeContainer}>
-                <TouchableOpacity onPress={() => router.push("/cadastro")}>
-                  <Text>Não tem uma conta?</Text>
-                  <Text style={styles.textoRodape}>Cadastre-se</Text>
+                <TouchableOpacity onPress={() => router.push("/login")}>
+                  <Text>Já tem uma conta?</Text>
+                  <Text style={styles.textoRodape}>Faça login</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -112,7 +147,7 @@ export default function Login() {
                         justifyContent: "space-around",
                       }}
                     >
-                      <Text style={styles.textoBotao}>Entrar</Text>
+                      <Text style={styles.textoBotao}>Enviar</Text>
                       <AntDesign name="login" size={24} color="white" />
                     </View>
                   ) : (
@@ -136,12 +171,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   formContainer: {
-    alignItems: "center",
     height: "auto",
     width: 320,
     padding: 30,
-    backgroundColor: "#FFFFFF",
     borderRadius: 10,
+    backgroundColor: "#FFFFFF",
+    alignItems: "center",
   },
   titulo: {
     fontSize: 42,
@@ -174,8 +209,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   botao: {
-    // flexDirection: "row",
-    // justifyContent: "space-around",
     width: 120,
     padding: 16,
     fontWeight: "bold",

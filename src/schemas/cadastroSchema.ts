@@ -1,6 +1,9 @@
 import * as Yup from "yup";
 
-const LoginSchema = Yup.object({
+const CadastroSchema = Yup.object({
+  nome: Yup.string()
+    .required("Nome obrigatório.")
+    .min(3, "Nome deve conter, no mínimo, 3 caracteres."),
   email: Yup.string()
     .required("Email obrigatório.")
     .email("Precisa ser um email válido"),
@@ -9,4 +12,4 @@ const LoginSchema = Yup.object({
     .min(6, "A senha deve conter, no mínimo, 6 caracteres"),
 });
 
-export default LoginSchema;
+export default CadastroSchema;

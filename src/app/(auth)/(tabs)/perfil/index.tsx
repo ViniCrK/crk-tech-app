@@ -1,11 +1,45 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { auth } from "@/config/firebase-config";
+import {
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { auth, db } from "@/config/firebase-config";
 import { router } from "expo-router";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { IUsuario } from "@/models/Usuario";
+import exibirAlerta from "@/utils/AlertaToast";
 
 export default function Perfil() {
-  const usuario = auth.currentUser;
+  const [usuario, setUsuario] = useState<IUsuario | null>(null);
+  const [carregando, setCarregando] = useState(true);
+  const usuarioAutenticado = auth.currentUser;
+
+  const buscarUsuario = async () => {
+    try {
+      if (!usuarioAutenticado?.uid) return;
+
+      const docRef = doc(db, "usuarios", usuarioAutenticado?.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        setUsuario(docSnap.data() as IUsuario);
+      }
+    } catch (erro) {
+      exibirAlerta("error", "bottom", "Erro ao buscar usuário.");
+    } finally {
+      setCarregando(false);
+    }
+  };
+
+  useEffect(() => {
+    buscarUsuario();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -14,24 +48,26 @@ export default function Perfil() {
       <View style={styles.card}>
         {/* <Image source={{ uri: usuario?.photoURL }} style={styles.avatar} /> */}
 
-        <Text style={styles.nome}>{usuario?.displayName}</Text>
-        <Text style={styles.info}>{usuario?.email}</Text>
-        <Text style={styles.info}>{usuario?.phoneNumber}</Text>
+        {carregando ? (
+          <ActivityIndicator size="large" color="gray" />
+        ) : (
+          <View style={styles.dadoContainer}>
+            <View style={styles.dado}>
+              <AntDesign name="user" size={28} color="#0F172A" />
+              <Text style={styles.dadoTexto}>{usuario?.nome}</Text>
+            </View>
 
-        <View style={styles.dado}>
-          <AntDesign name="user" size={20} color="#0F172A" />
-          <Text style={styles.dadoTexto}>{usuario?.displayName}</Text>
-        </View>
-
-        <View style={styles.dado}>
-          <MaterialIcons name="email" size={20} color="#0F172A" />
-          <Text style={styles.dadoTexto}>{usuario?.email}</Text>
-        </View>
+            <View style={styles.dado}>
+              <AntDesign name="mail" size={28} color="#0F172A" />
+              <Text style={styles.dadoTexto}>{usuario?.email}</Text>
+            </View>
+          </View>
+        )}
       </View>
 
       <TouchableOpacity
         style={styles.sairBotao}
-        onPress={() => router.push("/login")}
+        onPress={() => router.replace("/login")}
       >
         <AntDesign name="logout" size={20} color="#fff" />
         <Text style={styles.sairTexto}>Sair</Text>
@@ -70,27 +106,18 @@ const styles = StyleSheet.create({
     borderRadius: 56,
     marginBottom: 16,
   },
-  nome: {
-    fontSize: 20,
-    fontWeight: "600",
-    color: "#0F172A",
-    marginBottom: 4,
-  },
-  info: {
-    fontSize: 14,
-    color: "#6B7280",
-    marginBottom: 4,
+  dadoContainer: {
+    alignSelf: "flex-start",
+    gap: 10,
   },
   dado: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
-    alignSelf: "flex-start",
   },
   dadoTexto: {
     marginLeft: 8,
     color: "#374151",
-    fontSize: 16,
+    fontSize: 18,
   },
   sairBotao: {
     marginTop: 30,
