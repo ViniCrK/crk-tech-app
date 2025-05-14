@@ -12,6 +12,7 @@ import {
   TextInput,
   Button,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 
 export default function CadastrarProjeto() {
@@ -75,35 +76,41 @@ export default function CadastrarProjeto() {
 
           <Text style={styles.titulo}>Formulário de Cadastro</Text>
 
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              onChangeText={handleChange("titulo")}
-              onBlur={handleBlur("titulo")}
-              placeholder="Título do Projeto"
-              placeholderTextColor={"#000000"}
-              autoFocus
-            />
-            {errors.titulo && touched.titulo && (
-              <Text style={styles.textoErro}>{errors.titulo}</Text>
-            )}
-
-            <TextInput
-              style={styles.inputDescricao}
-              onChangeText={handleChange("descricao")}
-              onBlur={handleBlur("descricao")}
-              placeholder="Descrição do Projeto"
-              placeholderTextColor={"#000000"}
-              multiline
-            />
-            {errors.descricao && touched.descricao && (
-              <Text style={styles.textoErro}>{errors.descricao}</Text>
-            )}
-
-            <View style={{ gap: 20 }}>
-              <Text style={styles.label}>Especificações:</Text>
+          <View style={styles.formInputs}>
+            <View style={styles.inputContainer}>
               <TextInput
-                style={styles.input}
+                style={styles.inputTexto}
+                onChangeText={handleChange("titulo")}
+                onBlur={handleBlur("titulo")}
+                placeholder="Título do Projeto"
+                placeholderTextColor={"#000000"}
+                autoFocus
+              />
+              {errors.titulo && touched.titulo && (
+                <Text style={styles.textoErro}>{errors.titulo}</Text>
+              )}
+            </View>
+
+            <View style={styles.inputDescricaoContainer}>
+              <TextInput
+                style={styles.inputTexto}
+                onChangeText={handleChange("descricao")}
+                onBlur={handleBlur("descricao")}
+                placeholder="Descrição do Projeto"
+                placeholderTextColor={"#000000"}
+                multiline
+              />
+              {errors.descricao && touched.descricao && (
+                <Text style={styles.textoErro}>{errors.descricao}</Text>
+              )}
+            </View>
+
+            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+              Especificações:
+            </Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.inputTexto}
                 onChangeText={handleChange("especificacoes.processador")}
                 onBlur={handleBlur("especificacoes.processador")}
                 placeholder="Processador"
@@ -115,9 +122,11 @@ export default function CadastrarProjeto() {
                     {errors.especificacoes.processador}
                   </Text>
                 )}
+            </View>
 
+            <View style={styles.inputContainer}>
               <TextInput
-                style={styles.input}
+                style={styles.inputTexto}
                 onChangeText={handleChange("especificacoes.placaMae")}
                 onBlur={handleBlur("especificacoes.placaMae")}
                 placeholder="Placa Mãe"
@@ -129,9 +138,11 @@ export default function CadastrarProjeto() {
                     {errors.especificacoes.placaMae}
                   </Text>
                 )}
+            </View>
 
+            <View style={styles.inputContainer}>
               <TextInput
-                style={styles.input}
+                style={styles.inputTexto}
                 onChangeText={handleChange("especificacoes.memoriaRAM")}
                 onBlur={handleBlur("especificacoes.memoriaRAM")}
                 placeholder="Memória RAM"
@@ -143,9 +154,11 @@ export default function CadastrarProjeto() {
                     {errors.especificacoes.memoriaRAM}
                   </Text>
                 )}
+            </View>
 
+            <View style={styles.inputContainer}>
               <TextInput
-                style={styles.input}
+                style={styles.inputTexto}
                 onChangeText={handleChange("especificacoes.placaDeVideo")}
                 onBlur={handleBlur("especificacoes.placaDeVideo")}
                 placeholder="Placa de Vídeo"
@@ -157,9 +170,11 @@ export default function CadastrarProjeto() {
                     {errors.especificacoes.placaDeVideo}
                   </Text>
                 )}
+            </View>
 
+            <View style={styles.inputContainer}>
               <TextInput
-                style={styles.input}
+                style={styles.inputTexto}
                 onChangeText={handleChange("especificacoes.armazenamento")}
                 onBlur={handleBlur("especificacoes.armazenamento")}
                 placeholder="Armazenamento"
@@ -171,9 +186,11 @@ export default function CadastrarProjeto() {
                     {errors.especificacoes.armazenamento}
                   </Text>
                 )}
+            </View>
 
+            <View style={styles.inputContainer}>
               <TextInput
-                style={styles.input}
+                style={styles.inputTexto}
                 onChangeText={handleChange("especificacoes.fonte")}
                 onBlur={handleBlur("especificacoes.fonte")}
                 placeholder="Fonte"
@@ -185,9 +202,11 @@ export default function CadastrarProjeto() {
                     {errors.especificacoes.fonte}
                   </Text>
                 )}
+            </View>
 
+            <View style={styles.inputContainer}>
               <TextInput
-                style={styles.input}
+                style={styles.inputTexto}
                 onChangeText={handleChange("especificacoes.airCooler")}
                 onBlur={handleBlur("especificacoes.airCooler")}
                 placeholder="Air Cooler"
@@ -199,9 +218,11 @@ export default function CadastrarProjeto() {
                     {errors.especificacoes.airCooler}
                   </Text>
                 )}
+            </View>
 
+            <View style={styles.inputContainer}>
               <TextInput
-                style={styles.input}
+                style={styles.inputTexto}
                 onChangeText={handleChange("especificacoes.waterCooler")}
                 onBlur={handleBlur("especificacoes.waterCooler")}
                 placeholder="Water Cooler"
@@ -213,9 +234,11 @@ export default function CadastrarProjeto() {
                     {errors.especificacoes.waterCooler}
                   </Text>
                 )}
+            </View>
 
+            <View style={styles.inputContainer}>
               <TextInput
-                style={styles.input}
+                style={styles.inputTexto}
                 onChangeText={handleChange("especificacoes.gabinete")}
                 onBlur={handleBlur("especificacoes.gabinete")}
                 placeholder="Gabinete"
@@ -229,13 +252,14 @@ export default function CadastrarProjeto() {
                 )}
             </View>
 
-            <Button
+            <TouchableOpacity
               onPress={() => handleSubmit()}
-              title={"Enviar"}
-              color={"#2147A0"}
-              disabled={isSubmitting}
-            />
-            <View style={{ paddingBottom: 120 }}></View>
+              style={styles.botao}
+            >
+              <Text style={styles.textoBotao}>
+                {!isSubmitting ? "Enviar" : "Enviando"}
+              </Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       )}
@@ -245,8 +269,8 @@ export default function CadastrarProjeto() {
 
 const styles = StyleSheet.create({
   formContainer: {
+    flex: 1,
     paddingVertical: 30,
-    borderRadius: 10,
     backgroundColor: "#FFFFFF",
   },
   titulo: {
@@ -255,33 +279,49 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingVertical: 20,
   },
-  inputContainer: {
+  formInputs: {
     gap: 20,
   },
-  label: {
-    paddingBottom: 5,
-    fontSize: 18,
-  },
-  input: {
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     height: 50,
-    width: 350,
-    paddingLeft: 10,
-    fontSize: 14,
-    fontWeight: "regular",
-    backgroundColor: "#DEDEDE",
-    borderRadius: 5,
+    width: 320,
+    backgroundColor: "#FFF",
+    borderRadius: 10,
+    elevation: 10,
   },
-  inputDescricao: {
+  inputDescricaoContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     minHeight: 50,
-    width: 350,
+    width: 320,
+    backgroundColor: "#FFF",
+    borderRadius: 10,
+    elevation: 10,
+  },
+  inputTexto: {
+    fontSize: 16,
     paddingLeft: 10,
-    fontSize: 14,
-    fontWeight: "regular",
-    backgroundColor: "#DEDEDE",
-    borderRadius: 5,
   },
   textoErro: {
     color: "red",
     fontSize: 12,
+  },
+  botao: {
+    alignSelf: "flex-end",
+    width: 120,
+    padding: 16,
+    marginBottom: 120,
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    backgroundColor: "#3B82F6",
+    borderRadius: 10,
+  },
+  textoBotao: {
+    alignSelf: "center",
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });

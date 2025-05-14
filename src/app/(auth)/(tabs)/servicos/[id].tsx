@@ -89,7 +89,7 @@ export default function DetalheServico() {
           >
             <Link
               href={{
-                pathname: "projetos/editar",
+                pathname: "servicos/editar",
                 params: { id: servico.id },
               }}
               asChild
@@ -145,8 +145,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     padding: 20,
     fontSize: 18,
+    fontWeight: "bold",
     color: "#FFFFFF",
-    backgroundColor: "black",
+    backgroundColor: "#3B82F6",
     borderRadius: 10,
   },
   botaoExcluir: {

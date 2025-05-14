@@ -1,4 +1,12 @@
-import { StyleSheet, View, Image, Text, TextInput, Button } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  TextInput,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 import { router } from "expo-router";
 import { db } from "@/config/firebase-config";
 import { collection, doc, setDoc } from "firebase/firestore";
@@ -55,49 +63,57 @@ export default function CadastrarServico() {
 
           <Text style={styles.titulo}>Formulário de Cadastro</Text>
 
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              onChangeText={handleChange("titulo")}
-              onBlur={handleBlur("titulo")}
-              placeholder="Título do Serviço"
-              placeholderTextColor={"#000000"}
-              autoFocus
-            />
-            {errors.titulo && touched.titulo && (
-              <Text style={styles.textoErro}>{errors.titulo}</Text>
-            )}
+          <View style={styles.formInputs}>
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.inputTexto}
+                onChangeText={handleChange("titulo")}
+                onBlur={handleBlur("titulo")}
+                placeholder="Título do Serviço"
+                placeholderTextColor={"#000000"}
+                autoFocus
+              />
+              {errors.titulo && touched.titulo && (
+                <Text style={styles.textoErro}>{errors.titulo}</Text>
+              )}
+            </View>
 
-            <TextInput
-              style={styles.input}
-              onChangeText={handleChange("preco")}
-              onBlur={handleBlur("preco")}
-              placeholder="Preço do Serviço (R$)"
-              placeholderTextColor={"#000000"}
-              keyboardType="numeric"
-            />
-            {errors.preco && touched.preco && (
-              <Text style={styles.textoErro}>{errors.preco}</Text>
-            )}
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.inputTexto}
+                onChangeText={handleChange("preco")}
+                onBlur={handleBlur("preco")}
+                placeholder="Preço do Serviço (R$)"
+                placeholderTextColor={"#000000"}
+                keyboardType="numeric"
+              />
+              {errors.preco && touched.preco && (
+                <Text style={styles.textoErro}>{errors.preco}</Text>
+              )}
+            </View>
 
-            <TextInput
-              style={styles.inputDescricao}
-              multiline
-              onChangeText={handleChange("descricao")}
-              onBlur={handleBlur("descricao")}
-              placeholder="Descrição do Serviço"
-              placeholderTextColor={"#000000"}
-            />
-            {errors.descricao && touched.descricao && (
-              <Text style={styles.textoErro}>{errors.descricao}</Text>
-            )}
+            <View style={styles.inputDescricaoContainer}>
+              <TextInput
+                style={styles.inputTexto}
+                multiline
+                onChangeText={handleChange("descricao")}
+                onBlur={handleBlur("descricao")}
+                placeholder="Descrição do Serviço"
+                placeholderTextColor={"#000000"}
+              />
+              {errors.descricao && touched.descricao && (
+                <Text style={styles.textoErro}>{errors.descricao}</Text>
+              )}
+            </View>
 
-            <Button
+            <TouchableOpacity
               onPress={() => handleSubmit()}
-              title={"Enviar"}
-              color={"#2147A0"}
-              disabled={isSubmitting}
-            />
+              style={styles.botao}
+            >
+              <Text style={styles.textoBotao}>
+                {!isSubmitting ? "Enviar" : "Enviando"}
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       )}
@@ -107,9 +123,8 @@ export default function CadastrarServico() {
 
 const styles = StyleSheet.create({
   formContainer: {
-    height: "auto",
+    flex: 1,
     paddingVertical: 30,
-    borderRadius: 10,
     backgroundColor: "#FFFFFF",
     alignItems: "center",
   },
@@ -119,29 +134,48 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingVertical: 20,
   },
-  inputContainer: {
+  formInputs: {
     gap: 20,
   },
-  input: {
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     height: 50,
-    width: 350,
-    paddingLeft: 10,
-    fontSize: 14,
-    fontWeight: "regular",
-    backgroundColor: "#DEDEDE",
-    borderRadius: 5,
+    width: 320,
+    backgroundColor: "#FFF",
+    borderRadius: 10,
+    elevation: 10,
   },
-  inputDescricao: {
+  inputDescricaoContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     minHeight: 50,
-    width: 350,
+    width: 320,
+    backgroundColor: "#FFF",
+    borderRadius: 10,
+    elevation: 10,
+  },
+  inputTexto: {
+    fontSize: 16,
     paddingLeft: 10,
-    fontSize: 14,
-    fontWeight: "regular",
-    backgroundColor: "#DEDEDE",
-    borderRadius: 5,
   },
   textoErro: {
     color: "red",
     fontSize: 12,
+  },
+  botao: {
+    alignSelf: "flex-end",
+    width: 120,
+    padding: 16,
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    backgroundColor: "#3B82F6",
+    borderRadius: 10,
+  },
+  textoBotao: {
+    alignSelf: "center",
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });

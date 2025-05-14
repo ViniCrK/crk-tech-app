@@ -6,6 +6,7 @@ import {
   TextInput,
   Button,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
@@ -88,33 +89,37 @@ export default function EditarProjeto() {
 
           <Text style={styles.titulo}>Formulário de Edição</Text>
 
-          <View style={styles.inputContainer}>
+          <View style={styles.formInputs}>
             <View>
               <Text style={styles.label}>Título:</Text>
 
-              <TextInput
-                style={styles.input}
-                value={values.titulo}
-                onChangeText={handleChange("titulo")}
-                onBlur={handleBlur("titulo")}
-                placeholder="Título do Projeto"
-                placeholderTextColor={"#000000"}
-                autoFocus
-              />
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.inputTexto}
+                  value={values.titulo}
+                  onChangeText={handleChange("titulo")}
+                  onBlur={handleBlur("titulo")}
+                  placeholder="Título do Projeto"
+                  placeholderTextColor={"#000000"}
+                  autoFocus
+                />
+              </View>
             </View>
 
             <View>
               <Text style={styles.label}>Descrição:</Text>
 
-              <TextInput
-                style={styles.inputDescricao}
-                value={values.descricao}
-                onChangeText={handleChange("descricao")}
-                onBlur={handleBlur("descricao")}
-                placeholder="Descrição do Projeto"
-                placeholderTextColor={"#000000"}
-                multiline
-              />
+              <View style={styles.inputDescricaoContainer}>
+                <TextInput
+                  style={styles.inputTexto}
+                  value={values.descricao}
+                  onChangeText={handleChange("descricao")}
+                  onBlur={handleBlur("descricao")}
+                  placeholder="Descrição do Projeto"
+                  placeholderTextColor={"#000000"}
+                  multiline
+                />
+              </View>
             </View>
 
             <View style={{ gap: 20 }}>
@@ -123,129 +128,147 @@ export default function EditarProjeto() {
               <View>
                 <Text style={styles.label}>Processador:</Text>
 
-                <TextInput
-                  style={styles.input}
-                  value={values.especificacoes.processador}
-                  onChangeText={handleChange("especificacoes.processador")}
-                  onBlur={handleBlur("especificacoes.processador")}
-                  placeholder="Processador"
-                  placeholderTextColor={"#000000"}
-                />
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={styles.inputTexto}
+                    value={values.especificacoes.processador}
+                    onChangeText={handleChange("especificacoes.processador")}
+                    onBlur={handleBlur("especificacoes.processador")}
+                    placeholder="Processador"
+                    placeholderTextColor={"#000000"}
+                  />
+                </View>
               </View>
 
               <View>
                 <Text style={styles.label}>Placa Mãe:</Text>
 
-                <TextInput
-                  style={styles.input}
-                  value={values.especificacoes.placaMae}
-                  onChangeText={handleChange("especificacoes.placaMae")}
-                  onBlur={handleBlur("especificacoes.placaMae")}
-                  placeholder="Placa Mãe"
-                  placeholderTextColor={"#000000"}
-                />
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={styles.inputTexto}
+                    value={values.especificacoes.placaMae}
+                    onChangeText={handleChange("especificacoes.placaMae")}
+                    onBlur={handleBlur("especificacoes.placaMae")}
+                    placeholder="Placa Mãe"
+                    placeholderTextColor={"#000000"}
+                  />
+                </View>
               </View>
 
               <View>
                 <Text style={styles.label}>Memória RAM:</Text>
 
-                <TextInput
-                  style={styles.input}
-                  value={values.especificacoes.memoriaRAM}
-                  onChangeText={handleChange("especificacoes.memoriaRAM")}
-                  onBlur={handleBlur("especificacoes.memoriaRAM")}
-                  placeholder="Memória RAM"
-                  placeholderTextColor={"#000000"}
-                />
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={styles.inputTexto}
+                    value={values.especificacoes.memoriaRAM}
+                    onChangeText={handleChange("especificacoes.memoriaRAM")}
+                    onBlur={handleBlur("especificacoes.memoriaRAM")}
+                    placeholder="Memória RAM"
+                    placeholderTextColor={"#000000"}
+                  />
+                </View>
               </View>
 
               <View>
                 <Text style={styles.label}>Placa de Vídeo:</Text>
 
-                <TextInput
-                  style={styles.input}
-                  value={values.especificacoes.placaDeVideo}
-                  onChangeText={handleChange("especificacoes.placaDeVideo")}
-                  onBlur={handleBlur("especificacoes.placaDeVideo")}
-                  placeholder="Placa de Vídeo"
-                  placeholderTextColor={"#000000"}
-                />
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={styles.inputTexto}
+                    value={values.especificacoes.placaDeVideo}
+                    onChangeText={handleChange("especificacoes.placaDeVideo")}
+                    onBlur={handleBlur("especificacoes.placaDeVideo")}
+                    placeholder="Placa de Vídeo"
+                    placeholderTextColor={"#000000"}
+                  />
+                </View>
               </View>
 
               <View>
                 <Text style={styles.label}>Armazenamento:</Text>
 
-                <TextInput
-                  style={styles.input}
-                  value={values.especificacoes.armazenamento}
-                  onChangeText={handleChange("especificacoes.armazenamento")}
-                  onBlur={handleBlur("especificacoes.armazenamento")}
-                  placeholder="Armazenamento"
-                  placeholderTextColor={"#000000"}
-                />
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={styles.inputTexto}
+                    value={values.especificacoes.armazenamento}
+                    onChangeText={handleChange("especificacoes.armazenamento")}
+                    onBlur={handleBlur("especificacoes.armazenamento")}
+                    placeholder="Armazenamento"
+                    placeholderTextColor={"#000000"}
+                  />
+                </View>
               </View>
 
               <View>
                 <Text style={styles.label}>Fonte:</Text>
 
-                <TextInput
-                  style={styles.input}
-                  value={values.especificacoes.fonte}
-                  onChangeText={handleChange("especificacoes.fonte")}
-                  onBlur={handleBlur("especificacoes.fonte")}
-                  placeholder="Fonte"
-                  placeholderTextColor={"#000000"}
-                />
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={styles.inputTexto}
+                    value={values.especificacoes.fonte}
+                    onChangeText={handleChange("especificacoes.fonte")}
+                    onBlur={handleBlur("especificacoes.fonte")}
+                    placeholder="Fonte"
+                    placeholderTextColor={"#000000"}
+                  />
+                </View>
               </View>
 
               <View>
                 <Text style={styles.label}>Air Cooler:</Text>
 
-                <TextInput
-                  style={styles.input}
-                  value={values.especificacoes.airCooler}
-                  onChangeText={handleChange("especificacoes.airCooler")}
-                  onBlur={handleBlur("especificacoes.airCooler")}
-                  placeholder="Air Cooler"
-                  placeholderTextColor={"#000000"}
-                />
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={styles.inputTexto}
+                    value={values.especificacoes.airCooler}
+                    onChangeText={handleChange("especificacoes.airCooler")}
+                    onBlur={handleBlur("especificacoes.airCooler")}
+                    placeholder="Air Cooler"
+                    placeholderTextColor={"#000000"}
+                  />
+                </View>
               </View>
 
               <View>
                 <Text style={styles.label}>Water Cooler:</Text>
 
-                <TextInput
-                  style={styles.input}
-                  value={values.especificacoes.waterCooler}
-                  onChangeText={handleChange("especificacoes.waterCooler")}
-                  onBlur={handleBlur("especificacoes.waterCooler")}
-                  placeholder="Water Cooler"
-                  placeholderTextColor={"#000000"}
-                />
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={styles.inputTexto}
+                    value={values.especificacoes.waterCooler}
+                    onChangeText={handleChange("especificacoes.waterCooler")}
+                    onBlur={handleBlur("especificacoes.waterCooler")}
+                    placeholder="Water Cooler"
+                    placeholderTextColor={"#000000"}
+                  />
+                </View>
               </View>
 
               <View>
                 <Text style={styles.label}>Gabinete:</Text>
 
-                <TextInput
-                  style={styles.input}
-                  value={values.especificacoes.gabinete}
-                  onChangeText={handleChange("especificacoes.gabinete")}
-                  onBlur={handleBlur("especificacoes.gabinete")}
-                  placeholder="Gabinete"
-                  placeholderTextColor={"#000000"}
-                />
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={styles.inputTexto}
+                    value={values.especificacoes.gabinete}
+                    onChangeText={handleChange("especificacoes.gabinete")}
+                    onBlur={handleBlur("especificacoes.gabinete")}
+                    placeholder="Gabinete"
+                    placeholderTextColor={"#000000"}
+                  />
+                </View>
               </View>
             </View>
 
-            <Button
+            <TouchableOpacity
               onPress={() => handleSubmit()}
-              title={"Salvar Alterações"}
-              color={"#2147A0"}
-              disabled={isSubmitting}
-            />
-
-            <View style={{ paddingBottom: 120 }}></View>
+              style={styles.botao}
+            >
+              <Text style={styles.textoBotao}>
+                {!isSubmitting ? "Salvar" : "Salvando"}
+              </Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       )}
@@ -255,8 +278,8 @@ export default function EditarProjeto() {
 
 const styles = StyleSheet.create({
   formContainer: {
+    flex: 1,
     paddingVertical: 30,
-    borderRadius: 10,
     backgroundColor: "#FFFFFF",
   },
   titulo: {
@@ -265,33 +288,54 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingVertical: 20,
   },
-  inputContainer: {
+  formInputs: {
     gap: 20,
   },
   label: {
-    paddingBottom: 5,
+    paddingBottom: 10,
     fontSize: 18,
+    fontWeight: "bold",
   },
-  input: {
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     height: 50,
-    width: 350,
-    paddingLeft: 10,
-    fontSize: 14,
-    fontWeight: "regular",
-    backgroundColor: "#DEDEDE",
-    borderRadius: 5,
+    width: 320,
+    backgroundColor: "#FFF",
+    borderRadius: 10,
+    elevation: 10,
   },
-  inputDescricao: {
+  inputDescricaoContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     minHeight: 50,
-    width: 350,
+    width: 320,
+    backgroundColor: "#FFF",
+    borderRadius: 10,
+    elevation: 10,
+  },
+  inputTexto: {
+    fontSize: 16,
     paddingLeft: 10,
-    fontSize: 14,
-    fontWeight: "regular",
-    backgroundColor: "#DEDEDE",
-    borderRadius: 5,
   },
   textoErro: {
     color: "red",
     fontSize: 12,
+  },
+  botao: {
+    alignSelf: "flex-end",
+    width: 120,
+    padding: 16,
+    marginBottom: 120,
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    backgroundColor: "#3B82F6",
+    borderRadius: 10,
+  },
+  textoBotao: {
+    alignSelf: "center",
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
