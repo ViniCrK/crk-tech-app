@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import { Link } from "expo-router";
-import Toast from "react-native-toast-message";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "@/config/firebase-config";
@@ -60,16 +59,6 @@ export default function Projetos() {
 
   useEffect(() => {
     buscarProjetos();
-
-    Toast.show({
-      type: "info",
-      text1: "Toque em um projeto para mais informações",
-      text1Style: { fontSize: 14 },
-      position: "bottom",
-      visibilityTime: 2000,
-      autoHide: true,
-      bottomOffset: 100,
-    });
 
     const unsubscribe = onAuthStateChanged(auth, (usuario) => {
       if (usuario) {

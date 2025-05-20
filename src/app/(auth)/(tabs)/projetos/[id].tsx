@@ -6,9 +6,14 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { Link, router, useLocalSearchParams } from "expo-router";
+import {
+  Link,
+  router,
+  useFocusEffect,
+  useLocalSearchParams,
+} from "expo-router";
 import ProjetoNaoEncontrado from "./components/ProjetoNaoEncontrado";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IProjeto } from "@/models/Projeto";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { auth, db } from "@/config/firebase-config";
@@ -22,13 +27,17 @@ export default function DetalheProjeto() {
   const { id } = useLocalSearchParams();
 
   const buscarProjeto = async () => {
-    if (!id || typeof id !== "string") return;
+    try {
+      if (!id || typeof id !== "string") return;
 
-    const docRef = doc(db, "projetos", id);
-    const docSnap = await getDoc(docRef);
+      const docRef = doc(db, "projetos", id);
+      const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      setProjeto({ id: docSnap.id, ...docSnap.data() } as IProjeto);
+      if (docSnap.exists()) {
+        setProjeto({ id: docSnap.id, ...docSnap.data() } as IProjeto);
+      }
+    } catch (erro) {
+      exibirAlerta("error", "bottom", "Erro ao carregar projeto.", `${erro}`);
     }
   };
 

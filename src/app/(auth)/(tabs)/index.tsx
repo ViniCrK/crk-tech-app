@@ -1,43 +1,56 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-
-import { ImagensInicio } from "@/data/InicioData";
+import { router } from "expo-router";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import Octicons from "@expo/vector-icons/Octicons";
 
 export default function Home() {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={{ paddingHorizontal: 30, paddingBottom: 30 }}>
-        <Text style={styles.titulo}>
-          ASSISTÊNCIA TÉCNICA ESPECIALIZADA EM MONTAGEM DE COMPUTADORES
-        </Text>
+      <View style={styles.cabecalho}>
+        <Image
+          source={require("@/assets/images/CRK TECH LOGO BRANCO.png")}
+          style={styles.logo}
+        />
 
-        {ImagensInicio.map((item, index) => (
-          <View
-            key={index}
-            style={{ paddingVertical: 20, alignItems: "center", gap: 20 }}
-          >
-            <Image source={item.imagem} style={{ height: 300, width: 350 }} />
-            <Text
-              style={{ color: "#FFFFFF", fontSize: 20, fontWeight: "bold" }}
-            >
-              {item.titulo}
-            </Text>
-          </View>
-        ))}
+        <Text style={styles.titulo}>Bem-vindo(a) à CRK Tech!</Text>
+
+        <Text style={styles.subtitulo}>
+          Potencializando seu setup com tecnologia de ponta.
+        </Text>
       </View>
 
-      <View style={styles.avaliacoesContainer}>
-        <Text style={styles.avaliacoesTitulo}>O QUE DIZEM NOSSOS CLIENTES</Text>
+      <Text style={styles.chamada}>Conheça nossos:</Text>
 
-        <Text style={styles.avaliacoesDesc}>
-          “Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-          viverra tempus fringilla. Maecenas interdum accumsan malesuada.
-          Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam
-          rutrum mattis nisi, eget fringilla sem porttitor quis.“
-        </Text>
-
-        <Text style={styles.avaliacoesNome}>
-          João Gabriel - Cliente da CRK Tech
-        </Text>
+      <View style={styles.botoesContainer}>
+        <TouchableOpacity
+          style={styles.botaoContainer}
+          onPress={() => router.push("/projetos")}
+        >
+          <FontAwesome5 name="project-diagram" size={42} color="#2547A0" />
+          <Text style={styles.botaoTitulo}>Projetos</Text>
+          <Text style={styles.botaoSubtitulo}>
+            Aqui você poderá ver alguns projetos que já passaram pela nossa
+            assistência técnica.
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.botaoContainer}
+          onPress={() => router.push("/servicos")}
+        >
+          <Octicons name="tools" size={42} color="#2547A0" />
+          <Text style={styles.botaoTitulo}>Serviços</Text>
+          <Text style={styles.botaoSubtitulo}>
+            Conheça os serviços que você pode contratar, como montagem, limpeza,
+            upgrades e mais.
+          </Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -46,43 +59,65 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 30,
-    maxWidth: "auto",
+    paddingVertical: 30,
     backgroundColor: "#001044",
   },
-  titulo: {
-    paddingBottom: 10,
-    color: "#FFFFFF",
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "left",
-  },
-  avaliacoesContainer: {
+  cabecalho: {
     alignItems: "center",
-    backgroundColor: "#212020",
-    paddingVertical: 30,
+    marginBottom: 32,
   },
-  avaliacoesTitulo: {
-    width: 340,
-    paddingBottom: 20,
+  logo: {
+    width: 240,
+    height: 140,
+    resizeMode: "contain",
+    marginTop: 32,
+    marginBottom: 16,
+  },
+  titulo: {
     color: "#FFFFFF",
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: "bold",
     textAlign: "center",
   },
-  avaliacoesDesc: {
-    width: 280,
-    color: "#FFFFFF",
+  subtitulo: {
+    color: "#AAAAAA",
     fontSize: 16,
-    fontWeight: "black",
     textAlign: "center",
+    marginTop: 8,
   },
-  avaliacoesNome: {
-    paddingTop: 20,
-    paddingBottom: 120,
-    color: "#FFFFFF",
-    fontSize: 14,
+  chamada: {
+    color: "#FFF",
+    fontSize: 22,
+    fontWeight: "bold",
+    marginLeft: 40,
+    marginBottom: 10,
+  },
+  botoesContainer: {
+    flexDirection: "row",
+    marginHorizontal: 40,
+    justifyContent: "space-between",
+  },
+  botaoContainer: {
+    justifyContent: "space-around",
+    alignItems: "flex-start",
+    height: 320,
+    width: 160,
+    padding: 20,
+    backgroundColor: "#FFF",
+    borderRadius: 20,
+    shadowColor: "#1C1C1C",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  botaoTitulo: {
+    fontSize: 32,
     fontWeight: "bold",
     textAlign: "center",
+  },
+  botaoSubtitulo: {
+    color: "#555555",
+    fontSize: 16,
   },
 });
