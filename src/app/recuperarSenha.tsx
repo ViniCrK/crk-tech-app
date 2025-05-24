@@ -1,34 +1,36 @@
-import { router } from "expo-router";
 import {
-  ActivityIndicator,
   Image,
   StyleSheet,
+  View,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  ActivityIndicator,
 } from "react-native";
 import { Formik } from "formik";
-import LoginSchema from "@/schemas/loginSchema";
-import { auth } from "@/config/firebase-config";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { router } from "expo-router";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import exibirAlerta from "@/utils/AlertaToast";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-export default function Login() {
-  const entrar = async ({ email, senha }: any) => {
+export default function RecuperarSenha() {
+  const enviarLinkRecuperacao = async (email: string) => {
     try {
-      await signInWithEmailAndPassword(auth, email, senha);
-
-      router.replace("/(auth)");
+      const auth = getAuth();
+      await sendPasswordResetEmail(auth, email);
     } catch (erro) {
-      exibirAlerta(
-        "error",
-        "bottom",
-        "Falha ao entrar",
-        "Email ou Senha incorretos"
-      );
+      exibirAlerta("error", "bottom", "Erro ao enviar Link.");
+      console.log(erro);
     }
+
+    exibirAlerta(
+      "success",
+      "bottom",
+      "Link enviado com sucesso.",
+      "Verifique a caixa de entrada do seu e-mail"
+    );
+
+    return router.push("/login");
   };
   return (
     <View style={{ flex: 1 }}>
@@ -40,20 +42,17 @@ export default function Login() {
       </View>
 
       <Formik
-        initialValues={{ email: "", senha: "" }}
-        validationSchema={LoginSchema}
-        onSubmit={(dados) => entrar(dados)}
+        initialValues={{ email: "" }}
+        onSubmit={(dados) => enviarLinkRecuperacao(dados.email)}
       >
-        {({
-          errors,
-          touched,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          isSubmitting,
-        }) => (
+        {({ handleChange, handleBlur, handleSubmit, isSubmitting }) => (
           <View style={styles.formContainer}>
-            <Text style={styles.titulo}>Login</Text>
+            <Text style={styles.titulo}>Esqueci minha senha</Text>
+
+            <Text style={styles.subtitulo}>
+              Informe o e-mail cadastrado na sua conta e lhe enviaremos um link
+              para recuperação de senha.
+            </Text>
 
             <View style={styles.formInputs}>
               <View style={styles.inputContainer}>
@@ -63,6 +62,7 @@ export default function Login() {
                   color="gray"
                   style={styles.inputIcone}
                 />
+
                 <TextInput
                   style={styles.inputTexto}
                   onChangeText={handleChange("email")}
@@ -70,46 +70,14 @@ export default function Login() {
                   placeholder="E-mail"
                   placeholderTextColor={"#000000"}
                   keyboardType="email-address"
-                  autoFocus={false}
                 />
-                {errors.email && touched.email && (
-                  <Text style={styles.textoErro}>{errors.email}</Text>
-                )}
-              </View>
-
-              <View style={styles.inputContainer}>
-                <AntDesign
-                  name="lock1"
-                  size={24}
-                  color="gray"
-                  style={styles.inputIcone}
-                />
-                <TextInput
-                  style={styles.inputTexto}
-                  onChangeText={handleChange("senha")}
-                  onBlur={handleBlur("senha")}
-                  placeholder="Senha"
-                  placeholderTextColor={"#000000"}
-                  secureTextEntry
-                />
-                {errors.senha && touched.senha && (
-                  <Text style={styles.textoErro}>{errors.senha}</Text>
-                )}
               </View>
 
               <View style={styles.rodapeContainer}>
-                <View style={{ gap: 10 }}>
-                  <TouchableOpacity onPress={() => router.push("/cadastro")}>
-                    <Text>Não tem uma conta?</Text>
-                    <Text style={styles.textoRodape}>Cadastre-se</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => router.push("/recuperarSenha")}
-                  >
-                    <Text>Esqueceu sua senha?</Text>
-                    <Text style={styles.textoRodape}>Recuperar senha</Text>
-                  </TouchableOpacity>
-                </View>
+                <TouchableOpacity onPress={() => router.push("/login")}>
+                  <Text>Lembrou-se da senha?</Text>
+                  <Text style={styles.textoRodape}>Faça login</Text>
+                </TouchableOpacity>
 
                 <TouchableOpacity
                   onPress={() => handleSubmit()}
@@ -122,7 +90,7 @@ export default function Login() {
                         justifyContent: "space-around",
                       }}
                     >
-                      <Text style={styles.textoBotao}>Entrar</Text>
+                      <Text style={styles.textoBotao}>Enviar</Text>
                       <AntDesign name="login" size={24} color="white" />
                     </View>
                   ) : (
@@ -161,7 +129,14 @@ const styles = StyleSheet.create({
     fontSize: 42,
     fontWeight: "medium",
     textAlign: "center",
-    paddingVertical: 30,
+    paddingTop: 30,
+  },
+  subtitulo: {
+    color: "#AAAAAA",
+    fontSize: 16,
+    textAlign: "center",
+    paddingHorizontal: 40,
+    paddingBottom: 30,
   },
   formInputs: {
     gap: 20,
@@ -183,12 +158,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontWeight: "regular",
   },
-  textoErro: {
-    color: "red",
-    fontSize: 12,
-  },
   botao: {
-    alignSelf: "flex-end",
     width: 120,
     padding: 16,
     fontWeight: "bold",

@@ -44,11 +44,13 @@ export default function Cadastro() {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require("@/assets/images/CRK TECH LOGO BRANCO.png")}
-        style={{ height: 120, width: 240 }}
-      />
+    <View style={{ flex: 1 }}>
+      <View style={styles.logoContainer}>
+        <Image
+          source={require("@/assets/images/CRK TECH LOGO BRANCO.png")}
+          style={styles.logo}
+        />
+      </View>
 
       <Formik
         initialValues={{ nome: "", email: "", senha: "" }}
@@ -164,25 +166,29 @@ export default function Cadastro() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  logoContainer: {
     flex: 1,
-    gap: 30,
     justifyContent: "center",
     alignItems: "center",
   },
+  logo: {
+    width: 240,
+    height: 140,
+    resizeMode: "contain",
+    marginTop: 32,
+    marginBottom: 16,
+  },
   formContainer: {
-    height: "auto",
-    width: 320,
-    padding: 30,
-    borderRadius: 10,
-    backgroundColor: "#FFFFFF",
+    flex: 3,
     alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
   },
   titulo: {
     fontSize: 42,
     fontWeight: "medium",
     textAlign: "center",
-    paddingBottom: 20,
+    paddingVertical: 30,
   },
   formInputs: {
     gap: 20,
@@ -191,7 +197,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     height: 50,
-    width: 260,
+    width: 320,
     backgroundColor: "#FFF",
     borderRadius: 10,
     elevation: 10,
