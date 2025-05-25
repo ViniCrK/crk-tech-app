@@ -95,12 +95,12 @@ export default function DetalheServico() {
               asChild
             >
               <TouchableOpacity>
-                <Text style={styles.botaoEditar}>Editar Projeto</Text>
+                <Text style={styles.botaoEditar}>Editar Serviço</Text>
               </TouchableOpacity>
             </Link>
 
             <TouchableOpacity onPress={() => excluirServico(servico.id)}>
-              <Text style={styles.botaoExcluir}>Excluir Projeto</Text>
+              <Text style={styles.botaoExcluir}>Excluir Serviço</Text>
             </TouchableOpacity>
           </View>
         )}

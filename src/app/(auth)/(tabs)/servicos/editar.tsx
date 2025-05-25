@@ -39,7 +39,7 @@ export default function EditarServico() {
 
       await updateDoc(docRef, {
         titulo: dados.titulo,
-        preco: dados.preco,
+        preco: parseFloat(dados.preco),
         descricao: dados.descricao,
       });
     } catch (erro) {

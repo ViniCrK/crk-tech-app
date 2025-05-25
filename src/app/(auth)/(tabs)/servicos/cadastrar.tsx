@@ -21,7 +21,9 @@ export default function CadastrarServico() {
 
       await setDoc(docRef, {
         id: docRef.id,
-        ...dados,
+        preco: parseFloat(dados.preco),
+        titulo: dados.titulo,
+        descricao: dados.descricao,
       });
     } catch (erro) {
       exibirAlerta(
@@ -41,7 +43,7 @@ export default function CadastrarServico() {
     <Formik
       initialValues={{
         titulo: "",
-        preco: 0.0,
+        preco: "",
         descricao: "",
       }}
       validationSchema={cadastrarServicoSchema}
