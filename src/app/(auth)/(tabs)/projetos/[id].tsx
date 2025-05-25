@@ -76,7 +76,7 @@ export default function DetalheProjeto() {
     <ScrollView style={styles.container}>
       <View style={styles.projetoContainer}>
         <Image
-          source={require("@/assets/images/projeto-3.jpg")}
+          source={require("@/assets/images/projeto-3.png")}
           style={styles.projetoImagem}
         />
 

@@ -21,12 +21,12 @@ export default function Projetos() {
     require("@/assets/images/projeto-1.jpg"),
     require("@/assets/images/projeto-2.jpg"),
     require("@/assets/images/pc-2.jpg"),
-    require("@/assets/images/projeto-3.jpg"),
-    require("@/assets/images/projeto-4.jpg"),
-    require("@/assets/images/projeto-5.jpg"),
+    require("@/assets/images/projeto-3.png"),
+    require("@/assets/images/projeto-4.png"),
+    require("@/assets/images/projeto-5.png"),
     require("@/assets/images/projeto-6.jpg"),
-    require("@/assets/images/projeto-7.jpg"),
-    require("@/assets/images/projeto-9.jpg"),
+    require("@/assets/images/projeto-7.png"),
+    require("@/assets/images/projeto-9.png"),
   ];
 
   const [projetos, setProjetos] = useState<IProjeto[]>([]);
