@@ -7,6 +7,10 @@ import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import { IServico } from "@/models/Servico";
 import ServicoNaoEncontrado from "./components/ServicoNaoEncontrado";
 import exibirAlerta from "@/utils/AlertaToast";
+import {
+  GestureHandlerRootView,
+  ScrollView,
+} from "react-native-gesture-handler";
 
 export default function DetalheServico() {
   const [servico, setServico] = useState<IServico | null>(null);
@@ -61,51 +65,49 @@ export default function DetalheServico() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.servicoContainer}>
-        <Image
-          source={require("@/assets/icones/computador.png")}
-          style={styles.imagem}
-        />
+    <GestureHandlerRootView>
+      <ScrollView style={styles.container}>
+        <View style={styles.servicoContainer}>
+          <Image
+            source={require("@/assets/icones/computador.png")}
+            style={styles.imagem}
+          />
 
-        <Text style={{ fontSize: 36, fontWeight: "bold" }}>
-          {servico.titulo}
-        </Text>
+          <Text style={styles.titulo}>{servico.titulo}</Text>
 
-        <Text style={{ fontSize: 24, fontWeight: "bold", color: "#2547A0" }}>
-          R${servico.preco},00
-        </Text>
+          <Text style={styles.preco}>R${servico.preco},00</Text>
 
-        <Text style={{ fontSize: 18 }}>{servico.descricao}</Text>
+          <Text style={styles.descricao}>{servico.descricao}</Text>
 
-        <Link href="servicos/solicitar" asChild>
-          <TouchableOpacity>
-            <Text style={styles.botao}>Preencher formulário</Text>
-          </TouchableOpacity>
-        </Link>
-        {isAdmin && (
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <Link
-              href={{
-                pathname: "servicos/editar",
-                params: { id: servico.id },
-              }}
-              asChild
-            >
-              <TouchableOpacity>
-                <Text style={styles.botaoEditar}>Editar Serviço</Text>
-              </TouchableOpacity>
-            </Link>
-
-            <TouchableOpacity onPress={() => excluirServico(servico.id)}>
-              <Text style={styles.botaoExcluir}>Excluir Serviço</Text>
+          <Link href="servicos/solicitar" asChild>
+            <TouchableOpacity>
+              <Text style={styles.botao}>Preencher formulário</Text>
             </TouchableOpacity>
-          </View>
-        )}
-      </View>
-    </View>
+          </Link>
+          {isAdmin && (
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Link
+                href={{
+                  pathname: "servicos/editar",
+                  params: { id: servico.id },
+                }}
+                asChild
+              >
+                <TouchableOpacity>
+                  <Text style={styles.botaoEditar}>Editar Serviço</Text>
+                </TouchableOpacity>
+              </Link>
+
+              <TouchableOpacity onPress={() => excluirServico(servico.id)}>
+                <Text style={styles.botaoExcluir}>Excluir Serviço</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+      </ScrollView>
+    </GestureHandlerRootView>
   );
 }
 
@@ -118,19 +120,31 @@ const styles = StyleSheet.create({
   },
   servicoContainer: {
     paddingHorizontal: 30,
+    paddingBottom: 120,
     gap: 20,
   },
   imagem: {
     height: 300,
-    width: 350,
+    width: "100%",
     borderRadius: 10,
     borderWidth: 2,
-    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)",
+  },
+  titulo: {
+    fontSize: 36,
+    fontWeight: "bold",
+  },
+  preco: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#2547A0",
+  },
+  descricao: {
+    fontSize: 18,
   },
   botao: {
     alignSelf: "center",
     textAlign: "center",
-    width: 350,
+    width: "100%",
     marginTop: 10,
     padding: 20,
     fontSize: 18,

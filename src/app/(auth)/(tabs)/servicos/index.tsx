@@ -26,7 +26,7 @@ export default function Servicos() {
 
       {isAdmin && (
         <Link href="/servicos/cadastrar" asChild>
-          <TouchableOpacity style={styles.botaoAdd}>
+          <TouchableOpacity style={styles.botaoAdicionar}>
             <Text style={styles.textoBotaoAdd}>+</Text>
           </TouchableOpacity>
         </Link>
@@ -40,7 +40,7 @@ export default function Servicos() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 30,
+    paddingTop: 60,
     paddingHorizontal: 40,
     backgroundColor: "#001044",
   },
@@ -52,9 +52,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "left",
   },
-  botaoAdd: {
+  botaoAdicionar: {
     position: "absolute",
-    top: 30,
+    top: 60,
     right: 40,
     backgroundColor: "#FFF",
     borderRadius: 30,

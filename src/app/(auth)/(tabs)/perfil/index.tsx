@@ -79,6 +79,7 @@ export default function Perfil() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 60,
     backgroundColor: "#001044",
     padding: 24,
     justifyContent: "flex-start",

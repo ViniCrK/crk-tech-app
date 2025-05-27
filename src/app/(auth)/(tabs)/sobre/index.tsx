@@ -114,7 +114,7 @@ export default function Sobre() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 30,
+    paddingTop: 60,
     maxWidth: "auto",
     backgroundColor: "#FFFFFF",
   },

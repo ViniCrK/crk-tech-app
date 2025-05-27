@@ -59,7 +59,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 30,
+    paddingTop: 60,
     backgroundColor: "#001044",
   },
   cabecalho: {

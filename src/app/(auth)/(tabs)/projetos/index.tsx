@@ -88,7 +88,7 @@ export default function Projetos() {
 
       {isAdmin && (
         <Link href="/projetos/cadastrar" asChild>
-          <TouchableOpacity style={styles.botaoAdd}>
+          <TouchableOpacity style={styles.botaoAdicionar}>
             <Text style={styles.textoBotaoAdd}>+</Text>
           </TouchableOpacity>
         </Link>
@@ -123,7 +123,7 @@ export default function Projetos() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 30,
+    paddingTop: 60,
     paddingHorizontal: 30,
     paddingBottom: 80,
     backgroundColor: "#FFFFFF",
@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     flex: 1,
     aspectRatio: 1,
     marginRight: 6,
+    marginBottom: 6,
     backgroundColor: "#FFF",
   },
   imagemProjeto: {
@@ -148,9 +149,9 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     borderRadius: 10,
   },
-  botaoAdd: {
+  botaoAdicionar: {
     position: "absolute",
-    top: 30,
+    top: 60,
     right: 40,
     backgroundColor: "#001044",
     borderRadius: 30,
